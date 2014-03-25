@@ -1,6 +1,5 @@
 #COP3503 Project #1
 
-Requirements:
-* Support number types: i* ntegers, rationals, pi, e, nth-root irrationals
-* No floats or doubles
-* ect...
+Requirements: See Wiki
+
+Stage 1 Due Mar 28, 2014 12:30 pm 
