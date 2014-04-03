@@ -3,7 +3,7 @@
  */ 
 #include "Number.h"
 
-#define TYPE "Integer"
+#define INTEGER_TYPE "Integer"
 
 class Integer:public Number
 {
@@ -13,5 +13,5 @@ class Integer:public Number
 		Integer(int);
 	
 		string toString();
-		string getType() { return TYPE; };
+		string getType() { return INTEGER_TYPE; };
 };
