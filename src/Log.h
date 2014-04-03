@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class Log{
+class Log: public Number{
 	public:
 		Log(Number*, Number*);
 		Log(string, string);
