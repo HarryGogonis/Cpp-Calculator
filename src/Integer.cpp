@@ -1,4 +1,4 @@
-#include "Integer.h"
+#include "Number.h"
 
 Integer::Integer(int value)
 {

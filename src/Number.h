@@ -49,7 +49,8 @@ class Fraction:public Number
 		string getType() { return FRACTION_TYPE; };
 };
 
-class Log: public Number{
+class Log: public Number
+{
 	public:
 		Number* base;
 		Number* power;
