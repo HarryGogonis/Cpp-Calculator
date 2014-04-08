@@ -1,5 +1,6 @@
 #include <string>
 #include <sstream>
+#include <math.h>
 
 using namespace std;
 
@@ -16,6 +17,7 @@ class Number
 		virtual Number* simplify() = 0;
 		virtual string toString() = 0;	
 		virtual string getType() = 0;
+		virtual double getEstimate() = 0;
 
 		friend ostream& operator<<(ostream& out, Number* num) 
 		{
@@ -32,6 +34,7 @@ class Integer:public Number
 	
 		Number* simplify();
 		string toString();
+		double getEstimate();
 		string getType() { return INTEGER_TYPE; };
 };
 
@@ -49,14 +52,15 @@ class Fraction:public Number
 
 		Number* simplify();
 		string toString();
+		double getEstimate();
 		string getType() { return FRACTION_TYPE; };
 };
 
 class Log: public Number
 {
 	public:
-		Number* base;
-		Number* power;
+		int base;
+		int power;
 
 		Log(Number*, Number*);
 		Log(string, string);
@@ -65,6 +69,7 @@ class Log: public Number
 		
 		Number* simplify();
 		string toString();
+		double getEstimate();
 		string getType() {return LOG_TYPE; };
 };
 
@@ -78,6 +83,7 @@ class Irrational:public Number
   		
 		Number* simplify();
   		string toString();
+  		double getEstimate();
   		string getType() { return IRRATIONAL_TYPE; };
 
 };

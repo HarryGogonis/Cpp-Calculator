@@ -15,3 +15,7 @@ string Integer::toString()
 	oss << value;
 	return oss.str();
 }
+double Integer::getEstimate()
+{
+	return (double)value;
+}

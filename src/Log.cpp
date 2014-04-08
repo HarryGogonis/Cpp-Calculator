@@ -9,12 +9,12 @@ Log::Log(Number* base, Number* power)
 
 Log::Log(int base, int power)
 {
-	if (base == 0 || power == 0)
+	if (base < 0 || power <= 0)
 	{
 		throw domain_error("Math Error");
 	}
-	this->base = new Integer(base);
-	this->power = new Integer(power);
+	this->base = base;
+	this->power = power;
 }
 
 string Log::toString()
@@ -22,4 +22,18 @@ string Log::toString()
 	ostringstream oss;
 	oss << "log(" << base << "_" << power << ")";
 	return oss.str();
+}
+
+Number* Log::simplify()
+{
+	if (base == power)
+	{
+		return new Integer(1);
+	}
+	return this;
+}
+
+double Log::getEstimate()
+{
+	return log(power.getEstimate())/log(base.getEstimate()));
 }
