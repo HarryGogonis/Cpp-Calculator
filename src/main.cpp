@@ -1,29 +1,32 @@
+#include "Number.h"
+#include <boost/xpressive/xpressive.hpp>
+#include <string>
 #include <iostream>
-#include <regex>
 
 using namespace std;
 
-
-void parseInput(string input)
-{
-	typedef match_results<const char*> cmatch;
-	
-	// Regex to match
-	regex rx(".+");
-	
-	// Resolved text
-	cmatch res;
-
-	regex_match(input.c_str(),res,rx);
-
-	for (int i=0; i<res.size(); i++)	
-		cout << res[i];
-	cout << endl;
-}
-
-
 int main()
 {
-	parseInput("test");
-	return 0;
+	cout << "Numbers test" << endl;
+
+	Number* f1 = new Fraction(4,10);
+	Number* f2 = new Fraction(2,2);
+	Number* int1 = new Integer(5);
+	
+	cout << "f1: " << f1 << " " << f1->simplify() << endl;
+	cout << "f2: " << f2 << " " << f2->simplify() << endl;
+	cout << "int1: " << int1 << endl << endl;
+
+	cout << "Regex test" << endl;
+	using namespace boost::xpressive;
+	
+	std::string hello("5+log:5+5/2");
+	//(\d) ([\+\-\*\/]) (log:\d+)
+	sregex rex = sregex::compile( "((\\d)||([\\+\\-\\*/])||(\\w+:\\d+)||(?:\\s))+");
+	smatch what;
+
+	regex_match(hello,what,rex);
+		for (int i=0; i<what.size();i++)
+			std::cout << what[i] << '\n';
 }
+

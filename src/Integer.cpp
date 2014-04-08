@@ -5,6 +5,10 @@ Integer::Integer(int value)
 	this->value=value;
 }
 
+Number* Integer::simplify()
+{
+	return this;
+}
 string Integer::toString()
 {
 	ostringstream oss;
