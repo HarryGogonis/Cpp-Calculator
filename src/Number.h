@@ -13,12 +13,13 @@ using namespace std;
 class Number 
 {
 	public:
+		virtual Number* simplify() = 0;
 		virtual string toString() = 0;	
 		virtual string getType() = 0;
 
 		friend ostream& operator<<(ostream& out, Number* num) 
 		{
-			out << num->toString() << endl;
+			return out << num->toString();
 		}
 };
 
@@ -29,6 +30,7 @@ class Integer:public Number
 
 		Integer(int);
 	
+		Number* simplify();
 		string toString();
 		string getType() { return INTEGER_TYPE; };
 };
@@ -37,14 +39,15 @@ class Integer:public Number
 class Fraction:public Number
 {
 	public:
-		Number* num;
-		Number* den;
+		int num;
+		int den;
 
-		Fraction(Number*, Number*);
+		Fraction(Integer*, Integer*);
 		Fraction(int, int);
 		Fraction(string,string);
-		~Fraction();
+		//~Fraction();
 
+		Number* simplify();
 		string toString();
 		string getType() { return FRACTION_TYPE; };
 };
@@ -60,6 +63,7 @@ class Log: public Number
 		Log(int, int);
 		~Log();
 		
+		Number* simplify();
 		string toString();
 		string getType() {return LOG_TYPE; };
 };
@@ -72,6 +76,7 @@ class Irrational:public Number
 		string name;
 		Irrational(string s):name(s){};
   		
+		Number* simplify();
   		string toString();
   		string getType() { return IRRATIONAL_TYPE; };
 
