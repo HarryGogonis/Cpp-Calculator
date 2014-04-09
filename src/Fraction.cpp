@@ -58,5 +58,5 @@ string Fraction::toString()
 }
 double Fraction::getEstimate()
 {
-	return (double)(num)/(double)(den);
+	return (double) (num) / (double) (den);
 }
