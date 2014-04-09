@@ -26,7 +26,7 @@ class Number
 		}
 };
 
-class Integer:public Number
+class Integer: public Number
 {
 	public:
 		int value;
