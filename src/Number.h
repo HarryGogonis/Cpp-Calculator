@@ -9,9 +9,8 @@ using namespace std;
 #define IRRATIONAL_TYPE "Irrational"
 #define LOG_TYPE "Log"
 
-
 // Base class
-class Number 
+class Number
 {
 	public:
 		virtual Number* simplify() = 0;
@@ -42,7 +41,7 @@ class Integer:public Number
 };
 
 
-class Fraction:public Number
+class Fraction: public Number
 {
 	public:
 		int num;
@@ -80,7 +79,7 @@ class Log: public Number
 
 
 
-class Irrational:public Number
+class Irrational: public Number
 {
 	public:
 		string name;
