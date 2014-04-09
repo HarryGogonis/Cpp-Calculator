@@ -19,6 +19,8 @@ class Number
 		virtual string getType() = 0;
 		virtual double getEstimate() = 0;
 
+		virtual Number* operator+(Number*)=0;
+
 		friend ostream& operator<<(ostream& out, Number* num) 
 		{
 			return out << num->toString();
@@ -36,6 +38,7 @@ class Integer:public Number
 		string toString();
 		double getEstimate();
 		string getType() { return INTEGER_TYPE; };
+		Integer& operator+(Integer&);
 };
 
 
@@ -54,6 +57,7 @@ class Fraction:public Number
 		string toString();
 		double getEstimate();
 		string getType() { return FRACTION_TYPE; };
+		Fraction& operator+(Fraction&);
 };
 
 class Log: public Number
@@ -71,6 +75,7 @@ class Log: public Number
 		string toString();
 		double getEstimate();
 		string getType() {return LOG_TYPE; };
+		Log& operator+(Log&);
 };
 
 
@@ -85,6 +90,7 @@ class Irrational:public Number
   		string toString();
   		double getEstimate();
   		string getType() { return IRRATIONAL_TYPE; };
+		Irrational& operator+(Irrational&);
 
 };
 
