@@ -12,84 +12,94 @@ using namespace std;
 // Base class
 class Number
 {
-	public:
-		virtual Number* simplify() = 0;
-		virtual string toString() = 0;	
-		virtual string getType() = 0;
-		virtual double getEstimate() = 0;
+public:
+	virtual Number* simplify() = 0;
+	virtual string toString() = 0;
+	virtual string getType() = 0;
+	virtual double getEstimate() = 0;
 
-		virtual Number* operator+(Number*)=0;
-
-		friend ostream& operator<<(ostream& out, Number* num) 
-		{
-			return out << num->toString();
-		}
+	friend ostream& operator<<(ostream& out, Number* num)
+	{
+		return out << num->toString();
+	}
 };
 
 class Integer: public Number
 {
-	public:
-		int value;
+public:
+	int value;
 
-		Integer(int);
-	
-		Number* simplify();
-		string toString();
-		double getEstimate();
-		string getType() { return INTEGER_TYPE; };
-		Integer& operator+(Integer&);
+	Integer(int);
+
+	Number* simplify();
+	string toString();
+	double getEstimate();
+	string getType()
+	{
+		return INTEGER_TYPE;
+	}
+	;
 };
-
 
 class Fraction: public Number
 {
-	public:
-		int num;
-		int den;
+public:
+	int num;
+	int den;
 
-		Fraction(Integer*, Integer*);
-		Fraction(int, int);
-		Fraction(string,string);
-		//~Fraction();
+	Fraction(Integer*, Integer*);
+	Fraction(int, int);
+	Fraction(string, string);
+	//~Fraction();
 
-		Number* simplify();
-		string toString();
-		double getEstimate();
-		string getType() { return FRACTION_TYPE; };
-		Fraction& operator+(Fraction&);
+	Number* simplify();
+	string toString();
+	double getEstimate();
+	string getType()
+	{
+		return FRACTION_TYPE;
+	}
+	;
 };
 
 class Log: public Number
 {
-	public:
-		int base;
-		int power;
+public:
+	int base;
+	int power;
 
-		Log(Number*, Number*);
-		Log(string, string);
-		Log(int, int);
-		~Log();
-		
-		Number* simplify();
-		string toString();
-		double getEstimate();
-		string getType() {return LOG_TYPE; };
-		Log& operator+(Log&);
+	Log(string, string);
+	Log(int, int);
+	~Log();
+
+	Number* simplify();
+	string toString();
+	double getEstimate();
+	string getType()
+	{
+		return LOG_TYPE;
+	}
+	;
 };
-
-
 
 class Irrational: public Number
 {
-	public:
-		string name;
-		Irrational(string s):name(s){};
-  		
-		Number* simplify();
-  		string toString();
-  		double getEstimate();
-  		string getType() { return IRRATIONAL_TYPE; };
-		Irrational& operator+(Irrational&);
+public:
+	string name;
+	Irrational(string s) :
+			name(s)
+	{
+	}
+	;
+
+	Number* simplify();
+	string toString();
+	double getEstimate();
+	string getType()
+	{
+		return IRRATIONAL_TYPE;
+	}
+	;
 
 };
 
