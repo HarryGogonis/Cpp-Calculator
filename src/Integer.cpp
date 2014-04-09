@@ -2,7 +2,7 @@
 
 Integer::Integer(int value)
 {
-	this->value=value;
+	this->value = value;
 }
 
 Number* Integer::simplify()
@@ -17,5 +17,5 @@ string Integer::toString()
 }
 double Integer::getEstimate()
 {
-	return (double)value;
+	return (double) value;
 }
