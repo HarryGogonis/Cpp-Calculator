@@ -34,7 +34,7 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 	else if (firstNum->getType() == FRACTION_TYPE && secondNum->getType() == INTEGER_TYPE){
 	  Fraction* f1 = (Fraction*) firstNum;
 	  Integer* int2 = (Integer*) secondNum;
-	  int  newNum = f10->den * int2->value;
+	  int  newNum = f1->den * int2->value;
 	  return add(firstNum, Fraction(newNum, f1->den).simplify());
 	}
 	
