@@ -31,8 +31,7 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 		Log* log2 = (Log*) secondNum;
 		if (log1->base == log2->base)
 			{
-				int result = log1->power * log2->power;
-				return new Log(log1->base, result);
+				return Operations::multiply(log1->power,log2->power);
 			}
 		else {
 			// TODO return new Polynomial(log1,"+",log2);
@@ -85,9 +84,8 @@ Number* Operations::subtract(Number* firstNum, Number* secondNum)
 		Log* log2 = (Log*) secondNum;
 		if (log1->base == log2->base)
 			{
-				// Number* result = Operations::divide(log1->value,log2->value)
-				int result = log1->power / log2->power;
-				return new Log(log1->base, result);
+
+				return Operations::divide(log1->power,log2->power);
 			}
 		else {
 			// TODO return new Polynomial(log1,"+",log2); OR Change-of-base?
