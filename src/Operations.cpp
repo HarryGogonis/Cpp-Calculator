@@ -30,7 +30,6 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 	  int  newNum = f2->den * int1->value;
 	  return add(Fraction(newNum, f2->den).simplify(), secondNum);
 	}
-
 	else if (firstNum->getType() == FRACTION_TYPE && secondNum->getType() == INTEGER_TYPE){
 	  Fraction* f1 = (Fraction*) firstNum;
 	  Integer* int2 = (Integer*) secondNum;
@@ -103,7 +102,6 @@ Number* Operations::subtract(Number* firstNum, Number* secondNum)
 	  int  newNum = f2->den * int1->value;
 	  return subtract(Fraction(newNum, f2->den).simplify(), secondNum);
 	}
-
 	else if (firstNum->getType() == FRACTION_TYPE && secondNum->getType() == INTEGER_TYPE){
 	  Fraction* f1 = (Fraction*) firstNum;
 	  Integer* int2 = (Integer*) secondNum;
@@ -145,6 +143,7 @@ Number* Operations::subtract(Number* firstNum, Number* secondNum)
 
 Number* Operations::multiply(Number* firstNum, Number* secondNum)
 {
+	//Multiply two Integers
 	if (firstNum->getType() == INTEGER_TYPE
 		&& secondNum->getType() == INTEGER_TYPE) 
 	{
@@ -153,6 +152,7 @@ Number* Operations::multiply(Number* firstNum, Number* secondNum)
 		return new Integer(int1->value * int2->value);
 	}
 
+	//Multiply two Fractions
 	else if (firstNum->getType() == FRACTION_TYPE
 		&& secondNum->getType() == FRACTION_TYPE)
 		
@@ -164,6 +164,20 @@ Number* Operations::multiply(Number* firstNum, Number* secondNum)
 		return Fraction(num,den).simplify();
 	}
 	
+	//Multiply one Fraction and one Integer
+	else if (firstNum->getType() == INTEGER_TYPE && secondNum->getType() == FRACTION_TYPE){
+	  Integer* int1 = (Integer*) firstNum;
+	  Fraction* f2 = (Fraction*) secondNum;
+	  int  newNum = f2->num * int1->value;
+	  return Fraction(newNum, f2->den).simplify();
+	}
+	else if (firstNum->getType() == FRACTION_TYPE && secondNum->getType() == INTEGER_TYPE){
+	  Fraction* f1 = (Fraction*) firstNum;
+	  Integer* int2 = (Integer*) secondNum;
+	  int  newNum = f1->num * int2->value;
+	  return Fraction(newNum, f1->den).simplify();
+	
+	//Multiply two Logs
 	else if (firstNum->getType() == LOG_TYPE
 		&& secondNum->getType() == LOG_TYPE)
 	{
@@ -179,6 +193,7 @@ Number* Operations::multiply(Number* firstNum, Number* secondNum)
 
 	}
 	
+	//Multiply Two Irrationals
 	else if (firstNum->getType() == IRRATIONAL_TYPE
 		&& secondNum->getType() == IRRATIONAL_TYPE)
 	{
