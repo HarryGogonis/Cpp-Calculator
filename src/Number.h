@@ -1,3 +1,6 @@
+#ifndef _NUMBER_H_
+#define _NUMBER_H_
+
 #include <string>
 #include <sstream>
 #include <math.h>
@@ -60,6 +63,7 @@ public:
 		return FRACTION_TYPE;
 	}
 	;
+
 };
 
 class Log: public Number
@@ -67,6 +71,7 @@ class Log: public Number
 public:
 	int base;
 	int power;
+	// Number* value;
 
 	Log(string, string);
 	Log(int, int);
@@ -86,11 +91,9 @@ class Irrational: public Number
 {
 public:
 	string name;
-	Irrational(string s) :
-			name(s)
-	{
-	}
-	;
+	//Number* coeff;
+
+	Irrational(const string s, Number* coeff):name(s){};
 
 	Number* simplify();
 	string toString();
@@ -103,3 +106,4 @@ public:
 
 };
 
+#endif
