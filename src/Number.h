@@ -129,4 +129,17 @@ public:
 	;
 };
 
+class Polynomial: public Number
+{
+	public:
+		vector<Number*> numbers;
+		vector<char> operations;
+		
+		Polynomial(vector<Number*>, vector<char>);	
+	
+		Number* simplify();
+		string toString();
+		string getType() { return POLYNOMIAL_TYPE; };	
+};
+
 #endif
