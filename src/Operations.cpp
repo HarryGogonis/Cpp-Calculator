@@ -22,6 +22,21 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 		int den = f1->den * f2->den;
 		return Fraction(num,den).simplify();
 	}
+
+	//Add one Fraction and one Integer
+	else if (firstNum->getType() == INTEGER_TYPE && secondNum->getType() == FRACTION_TYPE){
+	  Integer* int1 = (Integer*) firstNum;
+	  Fraction* f2 = (Fraction*) secondNum;
+	  int  newNum = f2->den * int1->value;
+	  return add(Fraction(newNum, f2->den).simplify(), secondNum);
+	}
+
+	else if (firstNum->getType() == FRACTION_TYPE && secondNum->getType() == INTEGER_TYPE){
+	  Fraction* f1 = (Fraction*) firstNum;
+	  Integer* int2 = (Integer*) secondNum;
+	  int  newNum = f10->den * int2->value;
+	  return add(firstNum, Fraction(newNum, f1->den).simplify());
+	}
 	
 	// Add two logs
 	else if (firstNum->getType() == LOG_TYPE
