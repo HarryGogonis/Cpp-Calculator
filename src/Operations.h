@@ -1,3 +1,6 @@
+#ifndef _OPERATIONS_H_
+#define _OPERATIONS_H_
+
 #include "Number.h"
 
 class Operations {
@@ -8,3 +11,5 @@ class Operations {
 		static Number* divide(Number*, Number*);
 
 };
+
+#endif
