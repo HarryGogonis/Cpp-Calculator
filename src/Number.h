@@ -55,6 +55,7 @@ public:
 	Fraction(string, string);
 	//~Fraction();
 
+	static Number* convertDoubleToFraction(double);
 	Number* simplify();
 	string toString();
 	double getEstimate();
@@ -98,12 +99,47 @@ public:
 	Number* simplify();
 	string toString();
 	double getEstimate();
+	virtual ~Irrational();
 	string getType()
 	{
 		return IRRATIONAL_TYPE;
 	}
 	;
 
+};
+
+class Power: public Number
+{
+public:
+	Number* value;
+	Number* power;
+
+	Power(string, string);
+	Power(Number*, Number*);
+	Power(int, int);
+	virtual ~Power();
+
+	Number* simplify();
+	string toString();
+	double getEstimate();
+	string getType()
+	{
+		return LOG_TYPE;
+	}
+	;
+};
+
+class Polynomial: public Number
+{
+	public:
+		vector<Number*> numbers;
+		vector<char> operations;
+		
+		Polynomial(vector<Number*>, vector<char>);	
+	
+		Number* simplify();
+		string toString();
+		string getType() { return POLYNOMIAL_TYPE; };	
 };
 
 #endif
