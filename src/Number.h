@@ -69,11 +69,11 @@ public:
 class Log: public Number
 {
 public:
-	int base;
-	int power;
-	// Number* value;
+	Number* base;
+	Number* power;
 
 	Log(string, string);
+	Log(Number*, Number*);
 	Log(int, int);
 	~Log();
 
