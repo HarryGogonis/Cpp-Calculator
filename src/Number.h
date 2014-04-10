@@ -91,9 +91,9 @@ class Irrational: public Number
 {
 public:
 	string name;
-	Number* coeff;
+	//Number* coeff;
 
-	Irrational(const string s, Number* coeff):name(s),coeff(coeff){};
+	Irrational(const string s, Number* coeff):name(s){};
 
 	Number* simplify();
 	string toString();
