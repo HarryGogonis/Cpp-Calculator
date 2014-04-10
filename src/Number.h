@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <math.h>
+#include <vector>
 
 using namespace std;
 
@@ -106,4 +107,27 @@ public:
 
 };
 
+class Polynomial: public Number
+{
+	public:
+		vector<Number*> numbers;
+		vector<char> operations;
+		
+		Polynomial(vector<Number*>, vector<char>);	
+	
+		Number* simplify();
+		string toString();
+		string getType() { return POLYNOMIAL_TYPE; };	
+};
+/*
+struct Operation
+{
+	const char symbol;
+	Operation(char symbol)
+	{
+		if (symbol != "+" || symbol != "-" || symbol != "*" || symbol != "/"
+		this->symbol = symbol
+	}
+};
+*/
 #endif
