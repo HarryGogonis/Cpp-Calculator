@@ -13,6 +13,7 @@ using namespace std;
 #define IRRATIONAL_TYPE "Irrational"
 #define LOG_TYPE "Log"
 #define POLYNOMIAL_TYPE "Polynomial"
+#define POWER_TYPE "Power"
 
 // Base class
 class Number
@@ -126,7 +127,7 @@ public:
 	double getEstimate();
 	string getType()
 	{
-		return LOG_TYPE;
+		return POWER_TYPE;
 	}
 	;
 };
