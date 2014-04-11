@@ -57,9 +57,9 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 	else if (firstNum->getType() == IRRATIONAL_TYPE
 		&& secondNum->getType() == IRRATIONAL_TYPE)
 	{
-		if (firstNum->name == secondNum->name){
+	//	if (firstNum->name == secondNum->name){
 			//TODO return new Polynomial(2, "*", firstNum->name)
-		}
+	//	}
 	}
 	else 
 	{
@@ -176,7 +176,7 @@ Number* Operations::multiply(Number* firstNum, Number* secondNum)
 	  Integer* int2 = (Integer*) secondNum;
 	  int  newNum = f1->num * int2->value;
 	  return Fraction(newNum, f1->den).simplify();
-	
+	}
 	//Multiply two Logs
 	else if (firstNum->getType() == LOG_TYPE
 		&& secondNum->getType() == LOG_TYPE)

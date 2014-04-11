@@ -8,10 +8,10 @@ return this;
 
 string Irrational::toString()
 {
-return this.name;
+return this->name;
 }
 
-double Integer::getEstimate()
+double Irrational::getEstimate()
 {
  if(name=="e")
    return 2.718;

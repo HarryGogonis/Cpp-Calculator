@@ -140,7 +140,7 @@ class Polynomial: public Number
 		
 		Polynomial();
 		Polynomial(string);
-		Polynomial(vector<Number*>, vector<const char>);	
+		Polynomial(vector<Number*>, vector<char>);	
 		~Polynomial();
 
 		Number* join(Number*);
