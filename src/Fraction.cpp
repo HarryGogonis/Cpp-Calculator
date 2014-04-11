@@ -56,7 +56,16 @@ string Fraction::toString()
 	oss << num << "/" << den;
 	return oss.str();
 }
+
 double Fraction::getEstimate()
 {
 	return (double) (num) / (double) (den);
+}
+
+Number* Fraction::convertDoubleToFraction(double input)
+{
+	//Can anyone think of a better way to do this?
+	const int factor = 1000000;
+	Fraction* temp = new Fraction((input * factor), factor);
+	return temp->simplify();
 }
