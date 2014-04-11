@@ -4,10 +4,11 @@
 
 using namespace std;
 
-int parseInput(string input)
+/*int parseInput(string input)
 {
 
 }
+*/
 
 int main()
 {
