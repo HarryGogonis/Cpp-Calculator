@@ -15,7 +15,7 @@ Power::Power(int base, int power)
 string Power::toString()
 {
 	ostringstream oss;
-	oss << base << "^(" << power << ")0";
+	oss << base << "^(" << power << ")";
 	return oss.str();
 }
 
