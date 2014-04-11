@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <math.h>
+#include <vector>
 
 using namespace std;
 
@@ -11,6 +12,7 @@ using namespace std;
 #define INTEGER_TYPE "Integer"
 #define IRRATIONAL_TYPE "Irrational"
 #define LOG_TYPE "Log"
+#define POLYNOMIAL_TYPE "Polynomial"
 
 // Base class
 class Number
@@ -135,11 +137,18 @@ class Polynomial: public Number
 		vector<Number*> numbers;
 		vector<char> operations;
 		
-		Polynomial(vector<Number*>, vector<char>);	
-	
+		Polynomial();
+		Polynomial(string);
+		Polynomial(vector<Number*>, vector<const char>);	
+		~Polynomial();
+
+		Number* join(Number*);
 		Number* simplify();
 		string toString();
 		string getType() { return POLYNOMIAL_TYPE; };	
+
+		Number* operator+(Number*);
 };
+
 
 #endif
