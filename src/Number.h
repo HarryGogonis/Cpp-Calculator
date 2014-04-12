@@ -23,7 +23,7 @@ public:
 	virtual string toString() = 0;
 	virtual string getType() = 0;
 	virtual double getEstimate() = 0;
-
+	virtual ~Number();
 	friend ostream& operator<<(ostream& out, Number* num)
 	{
 		return out << num->toString();
@@ -79,7 +79,7 @@ public:
 	Log(string, string);
 	Log(Number*, Number*);
 	Log(int, int);
-	~Log();
+	virtual ~Log();
 
 	Number* simplify();
 	string toString();
@@ -114,7 +114,7 @@ public:
 class Power: public Number
 {
 public:
-	Number* value;
+	Number* base;
 	Number* power;
 
 	Power(string, string);
