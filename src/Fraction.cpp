@@ -65,7 +65,16 @@ double Fraction::getEstimate()
 Number* Fraction::convertDoubleToFraction(double input)
 {
 	//Can anyone think of a better way to do this?
-	const int factor = 1000000;
+	//const int factor = 1000000;
+	//Fraction* temp = new Fraction((input * factor), factor);
+	//return temp->simplify();
+	
+	stringstream ss;
+	ss << input;
+
+	int count = ss.str().length();
+	const int factor = pow(10,count-2);
+	
 	Fraction* temp = new Fraction((input * factor), factor);
 	return temp->simplify();
 }

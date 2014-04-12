@@ -23,7 +23,7 @@ public:
 	virtual string toString() = 0;
 	virtual string getType() = 0;
 	virtual double getEstimate() = 0;
-	virtual ~Number();
+	
 	friend ostream& operator<<(ostream& out, Number* num)
 	{
 		return out << num->toString();
