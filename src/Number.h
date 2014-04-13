@@ -36,6 +36,7 @@ public:
 	int value;
 
 	Integer(int);
+	Integer(string);
 
 	Number* simplify();
 	string toString();
