@@ -147,6 +147,7 @@ class Polynomial: public Number
 		Number* join(Number*);
 		Number* simplify();
 		string toString();
+		double getEstimate();
 		string getType() { return POLYNOMIAL_TYPE; };	
 
 		Number* operator+(Number*);

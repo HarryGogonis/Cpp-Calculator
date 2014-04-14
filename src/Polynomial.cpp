@@ -30,4 +30,13 @@ string Polynomial::toString()
 	return oss.str();
 }
 
+Number* Polynomial::simplify()
+{
+		
+}
 
+double Polynomial::getEstimate()
+{
+	//TODO IMPLEMENT
+	return -1;
+}

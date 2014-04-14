@@ -9,7 +9,7 @@ class Operations {
 		static Number* subtract(Number*, Number*);
 		static Number* multiply(Number*, Number*);
 		static Number* divide(Number*, Number*);
-
+		static Number* pow(Number*, Number*);
 };
 
 #endif
