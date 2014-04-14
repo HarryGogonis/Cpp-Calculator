@@ -123,15 +123,24 @@ void evaluate(string input)
 	{
 		string token = queue[i];
 		
-		// Match basic Integers
-		pcrecpp::RE rInt("-?\\d+");
+		// Regex 
+		pcrecpp::RE rInt("-?\\d+"); // Integer
+		pcrecpp::RE rFrac("(-?\\d+)\\/(-?\\d+)"); // Fraction
+		pcrecpp::RE rOps("([\\+\\-\\/\\*\\^\\(\\)])"); // Operations
+		
+		// Used to capture numbers from regex
+		int val1 = 0;
+		int val2 = 0;
+			
 		if (rInt.FullMatch(token))
 		{
 			numStack.push_back(new Integer(token));
 		}
-		
-		// Operators
-		else 
+		else if (rFrac.FullMatch(token, &val1, &val2))
+		{
+			numStack.push_back(Fraction(val1,val2).simplify());
+		}
+		else if (rOps.FullMatch(token))
 		{
 			Number* val2 = numStack.back();
 			numStack.pop_back();
@@ -146,6 +155,13 @@ void evaluate(string input)
 				numStack.push_back(Operations::subtract(val1,val2));	
 			else if (token == "/")
 				numStack.push_back(Operations::divide(val1,val2));
+			else if (token == "^")
+				numStack.push_back(Power(val1,val2).simplify());
+		}
+		else {
+			stringstream ss;
+			ss << "Invalid token" << token;
+			throw invalid_argument(ss.str());
 		}
 	}
 	if (numStack.size() > 0)
@@ -156,7 +172,7 @@ void evaluate(string input)
 int main()
 {
 	cout << endl << "Calculator" << endl;
-	cout << "Currently working: Integers" << endl;
+	cout << "Currently working: Integers, Fractions" << endl;
 	cout << "===========================" << endl << endl;
 	string input;
 
