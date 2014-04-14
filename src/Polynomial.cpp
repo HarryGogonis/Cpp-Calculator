@@ -30,4 +30,8 @@ string Polynomial::toString()
 	return oss.str();
 }
 
+Number* Polynomial::simplify()
+{
+}
+
 

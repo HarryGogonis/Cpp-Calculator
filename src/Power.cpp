@@ -1,4 +1,7 @@
 #include "Number.h"
+#include"Operations.h"
+#include <stdio.h>
+#include <math.h>
 
 Power::Power(Number* base, Number* power)
 {
@@ -30,11 +33,18 @@ Number* Power::simplify()
 	{
 		return new Integer((int) pow(base->getEstimate(), power->getEstimate()));
 	}
-	return this;
+	
+	else if(base->getType() == FRACTION_TYPE && power->getType() == INTEGER_TYPE)
+	{
+		Fraction* f1 = (Fraction*) base;
+		Integer* int2 = (Integer*) power;
+		return Operations::divide(new Power(f1->num, int2->value), new Power(f1->den, int2->value));
+	}
+
+	else return this;
 }
 
 Power::~Power()
 {
-	delete base;
-	delete power;
+
 }
