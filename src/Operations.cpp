@@ -210,25 +210,19 @@ Number* Operations::multiply(Number* firstNum, Number* secondNum)
 
 Number* Operations::divide(Number* firstNum, Number* secondNum)
 {
-	if (firstNum->getType() == INTEGER_TYPE
-		&& secondNum->getType() == INTEGER_TYPE) 
-	{
-		Integer* int1 = (Integer*) firstNum;
-		Integer* int2 = (Integer*) secondNum;
-		return new Integer(int1->value / int2->value);
+	//Dividing by Fraction is multiplying by inverse
+	if (secondNum->getType() == FRACTION_TYPE){
+		Fraction* f2 = (Fraction*) secondNum;
+		return multiply(firstNum, Fraction(f2->den, f2->num).simplify());
+		}
+
+	//Dividing by Integer is multiplying by 1/Integer
+	else if (secondNum->getType() == INTEGER_TYPE){
+	  Integer* int2 = (Integer*) secondNum;
+	  return multiply(firstNum, Fraction(1, int2->value).simplify());
 	}
 
-	else if (firstNum->getType() == FRACTION_TYPE
-		&& secondNum->getType() == FRACTION_TYPE)
-		
-	{
-		Fraction* f1 = (Fraction*) firstNum;
-		Fraction* f2 = (Fraction*) secondNum;
-		int num = f1->num * f2->den;
-		int den = f1->den * f2->num;
-		return Fraction(num,den).simplify();
-	}
-	
+	//Division of 2 Logs
 	else if (firstNum->getType() == LOG_TYPE
 		&& secondNum->getType() == LOG_TYPE)
 	{
