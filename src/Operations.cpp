@@ -53,17 +53,91 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 
 	}
 	
-	// Add two Irrationals
+	// Add two Irrationals of same type
 	else if (firstNum->getType() == IRRATIONAL_TYPE
 		&& secondNum->getType() == IRRATIONAL_TYPE)
 	{
-	//	if (firstNum->name == secondNum->name){
-			//TODO return new Polynomial(2, "*", firstNum->name)
-	//	}
+		Irrational* ir1 = (Irrational*) firstNum;
+		Irrational* ir2 = (Irrational*) secondNum;
+		if(ir1->name == ir2->name){
+			//TODO return Polynomial(2, "*", ir1->name);
+		}
+		else {
+			//TODO return Polynomial(firstNum, "+", secondNum);
+		}
 	}
+
+	//Add two Polynomials
+	else if (firstNum->getType() == POLYNOMIAL_TYPE && secondNum->getType() == POLYNOMIAL_TYPE)
+	{
+		Polynomial* poly1 = (Polynomial*) firstNum;
+		Polynomial* poly2 = (Polynomial*) secondNum;
+		vector<Number*> nums1 = poly2->numbers;
+		vector<Number*> nums2 = poly2->numbers;
+		vector<Number*> notAdded;
+		for(int j=0; j<nums1.size(); j++){
+			int i = 0;
+			bool a = false;
+			while(i<nums2.size() && !a){
+				if (nums2[i]->getType() == nums1[j]->getType()){
+					nums2[i] = add(nums1[j], nums2[i]);
+					a = true;
+				}
+				i++;
+				if (i==nums2.size())
+					notAdded.push_back(nums1[j]);
+			}
+		}
+		for(int k=0; k<notAdded.size(); k++)
+			poly2 = (Polynomial*) add(poly2, notAdded[k]);
+		return new Polynomial(poly2->numbers, poly2->operations);
+	}
+
+	//Add a Polynomial and another Number
+	else if(firstNum->getType() == POLYNOMIAL_TYPE)
+	{
+		Polynomial* poly1 = (Polynomial*) firstNum;
+		vector<Number*> nums = poly1->numbers;
+		int i = 0;
+		bool a = false;
+		while(i<nums.size() && !a){
+			if (nums[i]->getType() == secondNum->getType()){
+				nums[i] = add(nums[i], secondNum);
+				a = true;
+			}
+			i++;
+			if(i == nums.size()){
+				nums.push_back(secondNum);
+				poly1->operations.push_back('+');
+			}
+		}
+		return new Polynomial(nums, poly1->operations);
+	}
+	else if (secondNum->getType() == POLYNOMIAL_TYPE)
+	{
+		Polynomial* poly2 = (Polynomial*) secondNum;
+		vector<Number*> nums = poly2->numbers;
+		int i = 0;
+		bool a = false;
+		while(i<nums.size() && !a){
+			if (nums[i]->getType() == firstNum->getType()){
+				nums[i] = add(firstNum, nums[i]);
+				a = true;
+			}
+			i++;
+			if(i == nums.size()){
+				nums.push_back(firstNum);
+				poly2->operations.push_back('+');
+			}
+	
+		}
+		return new Polynomial(nums, poly2->operations);
+	}
+
+	//For any other case create Polynomial
 	else 
 	{
-		// TODO return new Polynomial(num1,"+",num2);
+		// TODO return new Polynomial(firstNum,"+",secondNum);
 	}
 	//TODO For debugging
 	throw  runtime_error("Number type not supported");
@@ -126,16 +200,25 @@ Number* Operations::subtract(Number* firstNum, Number* secondNum)
 
 	}
 	
-	//Subtract two Irrationals
+	//Subtract two Irrationals of same type
 	else if (firstNum->getType() == IRRATIONAL_TYPE
 		&& secondNum->getType() == IRRATIONAL_TYPE)
-	{
-		
+	{	
+		Irrational* ir1 = (Irrational*) firstNum;
+		Irrational* ir2 = (Irrational*) secondNum;
+		if(ir1->name == ir2->name)
+			return new Integer(0);
+		else {
+			//TODO return Polynomial(firstNum, "-", secondNum);
+		}
 	}
+		
+	//For any other case create Polynomial
 	else 
 	{
-		// TODO return new Polynomial(num1,"+",num2);
+		// TODO return new Polynomial(firstNum,"+",secondNum);
 	}
+
 	//TODO For debugging
 	throw  runtime_error("Number type not supported");
 	return new Integer(-1);	
@@ -193,16 +276,37 @@ Number* Operations::multiply(Number* firstNum, Number* secondNum)
 
 	}
 	
-	//Multiply Two Irrationals
+	//Multiply two Powers
+	else if(firstNum->getType() == POWER_TYPE && secondNum->getType() == POWER_TYPE)
+	{
+		Power* pow1 = (Power*) firstNum;
+		Power* pow2 = (Power*) secondNum;
+		if(pow1->base == pow2->base)
+			return new Power(pow1->base, add(pow1->power, pow2->power));
+		else{
+			//TODO return new Polynomial(firstNum, "*", secondNum);
+		}
+	}
+	
+	//Multiply Two Irrationals of same type
 	else if (firstNum->getType() == IRRATIONAL_TYPE
 		&& secondNum->getType() == IRRATIONAL_TYPE)
-	{
-		
+	{	
+		Irrational* ir1 = (Irrational*) firstNum;
+		Irrational* ir2 = (Irrational*) secondNum;
+		if(ir1->name == ir2->name)
+			return new Power(firstNum, new Integer(2));
+		else {
+			//TODO return Polynomial(firstNum, "*", secondNum);
+		}
 	}
+	
+	// For any other case create Polynomial
 	else 
 	{
-		// TODO return new Polynomial(num1,"+",num2);
+		// TODO return new Polynomial(firstNum,"*",secondNum);
 	}
+
 	//TODO For debugging
 	throw  runtime_error("Number type not supported");
 	return new Integer(-1);	
@@ -229,6 +333,7 @@ Number* Operations::divide(Number* firstNum, Number* secondNum)
 		return Fraction(num,den).simplify();
 	}
 	
+	//Division of 2 Logs
 	else if (firstNum->getType() == LOG_TYPE
 		&& secondNum->getType() == LOG_TYPE)
 	{
@@ -243,16 +348,39 @@ Number* Operations::divide(Number* firstNum, Number* secondNum)
 		}		
 
 	}
+
+	//Divide two Powers
+	else if(firstNum->getType() == POWER_TYPE && secondNum->getType() == POWER_TYPE)
+	{
+		Power* pow1 = (Power*) firstNum;
+		Power* pow2 = (Power*) secondNum;
+		if(pow1->base == pow2->base)
+			return new Power(pow1->base, subtract(pow1->power, pow2->power));
+		else{
+			//TODO return new Polynomial(firstNum, "/", secondNum);
+		}
+	}
 	
+	//Divide two Irrations of same type
 	else if (firstNum->getType() == IRRATIONAL_TYPE
 		&& secondNum->getType() == IRRATIONAL_TYPE)
-	{
-		
+	{	
+		Irrational* ir1 = (Irrational*) firstNum;
+		Irrational* ir2 = (Irrational*) secondNum;
+		if(ir1->name == ir2->name)
+			return new Integer(1);
+		else {
+			//TODO return Polynomial(firstNum, "/", secondNum);
+		}
 	}
+
+	
+	//For any other case create Polynomial
 	else 
 	{
-		// TODO return new Polynomial(num1,"+",num2);
+		// TODO return new Polynomial(firstNum,"+",secondNum);
 	}
+
 	//TODO For debugging
 	throw  runtime_error("Number type not supported");
 	return new Integer(-1);	
