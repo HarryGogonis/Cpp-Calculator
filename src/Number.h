@@ -99,12 +99,12 @@ public:
 	string name;
 	//Number* coeff;
 
-	Irrational(const string s, Number* coeff):name(s){};
+	Irrational(const string s):name(s){};
 
 	Number* simplify();
 	string toString();
 	double getEstimate();
-	virtual ~Irrational();
+	//virtual ~Irrational();
 	string getType()
 	{
 		return IRRATIONAL_TYPE;

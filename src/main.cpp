@@ -125,12 +125,14 @@ void evaluate(string input)
 		
 		// Regex 
 		pcrecpp::RE rInt("-?\\d+"); // Integer
-		pcrecpp::RE rFrac("(-?\\d+)\\/(-?\\d+)"); // Fraction
+		pcrecpp::RE rFrac("(-?\\d+)\\/(-?\\d+)"); // Fractiona
+		pcrecpp::RE rDec("(\\d+\\.\\d+)"); // Decimals
 		pcrecpp::RE rOps("([\\+\\-\\/\\*\\^\\(\\)])"); // Operations
 		pcrecpp::RE rLog("log_(\\d+)\\((\\d+)\\)"); // Logs		
 		// Used to capture numbers from regex
 		int val1 = 0;
 		int val2 = 0;
+		double val3 = 0;
 			
 		if (rInt.FullMatch(token))
 		{
@@ -141,9 +143,17 @@ void evaluate(string input)
 			
 			numStack.push_back((new Fraction(val1,val2))->simplify());
 		}
+		/*else if (rDec.FullMatch(token), &val3)
+		{
+			numStack.push_back(new Fraction(val3));
+		}*/
 		else if (rLog.FullMatch(token, &val1, &val2))
 		{
 			numStack.push_back(Log(val1,val2).simplify());
+		}
+		else if (token == "e" || token == "pi")
+		{
+			numStack.push_back(new Irrational(token));
 		}
 		else if (rOps.FullMatch(token))
 		{
@@ -221,8 +231,10 @@ int main()
 		cout << e.what() << endl;
 	} catch (invalid_argument e) {
 		cout << e.what() << endl;
+	} catch (runtime_error e) {
+		cout << e.what() << endl;
 	} catch (exception e) {
-		cout << "Error";
+		cout << "Error" << endl;
 	}
 	}
 	return 0;	
