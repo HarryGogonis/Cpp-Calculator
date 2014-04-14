@@ -80,7 +80,7 @@ public:
 	Log(string, string);
 	Log(Number*, Number*);
 	Log(int, int);
-	virtual ~Log();
+	//virtual ~Log();
 
 	Number* simplify();
 	string toString();
