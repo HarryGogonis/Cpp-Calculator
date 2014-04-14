@@ -66,7 +66,74 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 			//TODO return Polynomial(firstNum, "+", secondNum);
 		}
 	}
-	
+
+	//Add two Polynomials
+	else if (firstNum->getType() == POLYNOMIAL_TYPE && secondNum->getType() == POLYNOMIAL_TYPE)
+	{
+		Polynomial* poly1 = (Polynomial*) firstNum;
+		Polynomial* poly2 = (Polynomial*) secondNum;
+		vector<Number*> nums1 = poly2->numbers;
+		vector<Number*> nums2 = poly2->numbers;
+		vector<Number*> notAdded;
+		for(int j=0; j<nums1.size(); j++){
+			int i = 0;
+			bool a = false;
+			while(i<nums2.size() && !a){
+				if (nums2[i]->getType() == nums1[j]->getType()){
+					nums2[i] = add(nums1[j], nums2[i]);
+					a = true;
+				}
+				i++;
+				if (i==nums2.size())
+					notAdded.push_back(nums1[j]);
+			}
+		}
+		for(int k=0; k<notAdded.size(); k++)
+			nums2.push_back(notAdded[k]);
+		//TODO push_back operations vector
+		return new Polynomial(nums2, poly2->operations);
+	}
+
+	//Add a Polynomial and another Number
+	else if(firstNum->getType() == POLYNOMIAL_TYPE)
+	{
+		Polynomial* poly1 = (Polynomial*) firstNum;
+		vector<Number*> nums = poly1->numbers;
+		int i = 0;
+		bool a = false;
+		while(i<nums.size() && !a){
+			if (nums[i]->getType() == secondNum->getType()){
+				nums[i] = add(nums[i], secondNum);
+				a = true;
+			}
+			i++;
+			if(i == nums.size()){
+				nums.push_back(secondNum);
+				poly1->operations.push_back('+');
+			}
+		}
+		return new Polynomial(nums, poly1->operations);
+	}
+	else if (secondNum->getType() == POLYNOMIAL_TYPE)
+	{
+		Polynomial* poly2 = (Polynomial*) secondNum;
+		vector<Number*> nums = poly2->numbers;
+		int i = 0;
+		bool a = false;
+		while(i<nums.size() && !a){
+			if (nums[i]->getType() == firstNum->getType()){
+				nums[i] = add(firstNum, nums[i]);
+				a = true;
+			}
+			i++;
+			if(i == nums.size()){
+				nums.push_back(firstNum);
+				poly2->operations.push_back('+');
+			}
+
+		}
+		return new Polynomial(nums, poly2->operations);
+	}
 	
 	//For any other case create Polynomial
 	else 
