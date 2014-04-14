@@ -138,7 +138,7 @@ void evaluate(string input)
 		}
 		else if (rFrac.FullMatch(token, &val1, &val2))
 		{
-			numStack.push_back(Fraction(val1,val2).simplify());
+			numStack.push_back((new Fraction(val1,val2))->simplify());
 		}
 		else if (rOps.FullMatch(token))
 		{
@@ -146,7 +146,9 @@ void evaluate(string input)
 			numStack.pop_back();
 			Number* val1 = numStack.back();
 			numStack.pop_back();
-	
+		
+			cout << "d\t" << val1 << " " << val2;		
+		
 			if (token == "+")
 				numStack.push_back(Operations::add(val1,val2));
 			else if (token == "*")
@@ -175,6 +177,22 @@ int main()
 	cout << "Currently working: Integers, Fractions" << endl;
 	cout << "===========================" << endl << endl;
 	string input;
+
+	cout << "===Debugging Area===";
+	
+	Number* Int = new Integer(1);
+	Number* Frac = new Fraction(1,2);
+	Number* Frac2 = new Fraction(1,2);
+
+	cout << Frac << " + " << Frac2;
+	cout << Operations::add(Frac,Frac2);
+
+	cout << Int << " + " << Frac;
+	cout << Operations::add(Frac,Int);
+	cout << Operations::add(Int,Frac);
+	cout << endl;
+
+	cout << "====================";
 
 	while (true) {
 	cout << "Enter expression (spaces seperate values/operations):" << endl;
