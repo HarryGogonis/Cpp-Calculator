@@ -179,7 +179,7 @@ Number* Operations::subtract(Number* firstNum, Number* secondNum)
 	else if (firstNum->getType() == FRACTION_TYPE && secondNum->getType() == INTEGER_TYPE){
 	  Fraction* f1 = (Fraction*) firstNum;
 	  Integer* int2 = (Integer*) secondNum;
-	  int  newNum = f1->num + f1->den * int2->value;
+	  int  newNum = f1->num - f1->den * int2->value;
 	  return (new Fraction(newNum, f1->den))->simplify();
 	}
 	
