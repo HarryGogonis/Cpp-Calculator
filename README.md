@@ -6,19 +6,27 @@
 
 ###Instructions for installing PCRE:
 
-1. Download the latest version [here](http://ftp.csx.cam.ac.uk/pub/software/programming/pcre/)
+Download the latest version [here](http://ftp.csx.cam.ac.uk/pub/software/programming/pcre/)
 
-2. Extract the file
+Extract the file
 
     tar -zxf pcre-833.tar.bz2 
 
-3. Build the source code. 
+Build the source code
 
     ./configure
 
     make 
 
     make install
+
+### Installing Calculator
+
+    cd /path/to/dir
+
+    make
+    
+    ./Calc
 
 ##Syntax
 
