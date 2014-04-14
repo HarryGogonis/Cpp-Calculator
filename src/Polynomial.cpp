@@ -32,8 +32,8 @@ string Polynomial::toString()
 
 Number* Polynomial::simplify()
 {
-		
 }
+
 
 double Polynomial::getEstimate()
 {
