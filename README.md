@@ -4,5 +4,10 @@
 
 PCRE - http://pcre.org/
 
+###Syntax
 
-    sudo apt-get install libpcre3
+Tokens must be seperated by a space.
+
+Example of valid input:
+
+    3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3

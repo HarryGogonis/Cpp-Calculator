@@ -4,7 +4,7 @@
 #include <deque>
 #include <sstream>
 #include "Number.h"
-
+#include <stdexcept>
 struct operation
 {
 	string symbol;
@@ -12,7 +12,7 @@ struct operation
 	char assoc;
 	
 	operation(string s, int p, char a):symbol(s),prec(p),assoc(a) {};
-	operation() { operation(" ",-1,'0'); };
+	operation() { operation("null",-1,'0'); };
 };
 
 using namespace std;
@@ -46,14 +46,6 @@ void parseInput(string input)
 		// Match basic operators
 		pcrecpp::RE rOps("([\\+\\-\\/\\*\\^\\(\\)])");
 		
-		// TODO testing
-		for (int j=0; j<output.size();j++) {
-			cout << " ";
-			cout << output[j];
-		}
-		cout.flush();	
-		cout << endl;
-		
 		// Handle parenthesis
 		if (x[i] == ")")
 		{
@@ -72,11 +64,7 @@ void parseInput(string input)
 	
 		else if (rOps.FullMatch(x[i])) {
 			operation op1;
-			operation op2;
 			
-			if (!oper.empty())
-				op2  = oper.back();
-
 			if (x[i] == "+") op1 = operation("+",2,'L');
 			else if (x[i] == "-") op1 = operation("-",2,'L');
 			else if (x[i] == "/") op1 = operation("/",3,'L');
@@ -84,38 +72,34 @@ void parseInput(string input)
 			else if (x[i] == "^") op1 = operation("^",4,'R');
 			else if (x[i] == "(") op1 = operation("(",9,'L');
 			
-			if ((op1.assoc == 'L' && op1.prec == op2.prec) 
-				|| op1.prec < op2.prec) 
+			//cout << "op 1 " << op1.symbol;
+			//cout << "op 2 " << op2.symbol;
+			if (!oper.empty())
 			{
-				output.push_back(op2.symbol);
-				oper.pop_back();
-			} 
+				operation op2 = oper.back();
+				if (op2.symbol != "(" && ((op1.assoc == 'L' &&
+				    op1.prec == op2.prec && op1.prec > 0) 
+				    || op1.prec < op2.prec))
+					{
+						output.push_back(op2.symbol);
+						oper.pop_back();
+					} 
+			}
 			oper.push_back(op1);
 		}	
 
 		else {
 			output.push_back(x[i]);	
 		}
-		
-		/*	
-		// Match Integers	
-		pcrecpp::RE rInt("-?\\d+");
-		if (rInt.FullMatch(x[i])) {
-			nums.push_back(new Integer(x[i]));
-			continue;
-		}
-		// Match Fractions	
-		pcrecpp::RE rFrac("(-?\\d+)\\/(-?\\d+)");
-		int num=0;
-		int den=0;
-		if (rFrac.FullMatch(x[i],&num,&den)) {
-			nums.push_back(Fraction(num,den).simplify());
-			continue;
-		}*/
+		//pcrecpp::RE rInt("-?\\d+");
+		//pcrecpp::RE rFrac("(-?\\d+)\\/(-?\\d+)");
 	}
 	
 	while (!oper.empty())
 	{
+		operation op = oper.back();
+		if (op.symbol == "(" || op.symbol == ")")
+			throw invalid_argument("Mismatched parenthesis");
 		output.push_back(string(oper.back().symbol));
 		oper.pop_back();
 	}
