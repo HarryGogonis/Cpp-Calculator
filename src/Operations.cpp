@@ -89,9 +89,8 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 			}
 		}
 		for(int k=0; k<notAdded.size(); k++)
-			nums2.push_back(notAdded[k]);
-		//TODO push_back operations vector
-		return new Polynomial(nums2, poly2->operations);
+			poly2 = (Polynomial*) add(poly2, notAdded[k]);
+		return new Polynomial(poly2->numbers, poly2->operations);
 	}
 
 	//Add a Polynomial and another Number
