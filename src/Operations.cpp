@@ -20,21 +20,21 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 		Fraction* f2 = (Fraction*) secondNum;
 		int num = f1->num * f2->den + f2->num * f1->den;
 		int den = f1->den * f2->den;
-		return Fraction(num,den).simplify();
+		return (new Fraction(num,den))->simplify();
 	}
 
 	//Add one Fraction and one Integer
 	else if (firstNum->getType() == INTEGER_TYPE && secondNum->getType() == FRACTION_TYPE){
-	  Integer* int1 = (Integer*) firstNum;
-	  Fraction* f2 = (Fraction*) secondNum;
-	  int  newNum = f2->den * int1->value;
-	  return add(Fraction(newNum, f2->den).simplify(), secondNum);
+	  Integer* Int = (Integer*) firstNum;
+	  Fraction* Frac = (Fraction*) secondNum;
+	  int newNum = Frac->num + Frac->den * Int->value;
+	  return new Fraction(newNum, Frac->den);
 	}
 	else if (firstNum->getType() == FRACTION_TYPE && secondNum->getType() == INTEGER_TYPE){
-	  Fraction* f1 = (Fraction*) firstNum;
-	  Integer* int2 = (Integer*) secondNum;
-	  int  newNum = f1->den * int2->value;
-	  return add(firstNum, Fraction(newNum, f1->den).simplify());
+	  Fraction* Frac = (Fraction*) firstNum;
+	  Integer* Int = (Integer*) secondNum;
+	  int newNum = Frac->num + Frac->den * Int->value;
+	  return new Fraction(newNum, Frac->den);
 	}
 	
 	// Add two Logs
@@ -92,21 +92,21 @@ Number* Operations::subtract(Number* firstNum, Number* secondNum)
 		Fraction* f2 = (Fraction*) secondNum;
 		int num = f1->num * f2->den - f2->num * f1->den;
 		int den = f1->den * f2->den;
-		return Fraction(num,den).simplify();
+		return (new Fraction(num,den))->simplify();
 	}
 	
 	//Subtract one Fraction and one Integer
 	else if (firstNum->getType() == INTEGER_TYPE && secondNum->getType() == FRACTION_TYPE){
 	  Integer* int1 = (Integer*) firstNum;
 	  Fraction* f2 = (Fraction*) secondNum;
-	  int  newNum = f2->den * int1->value;
-	  return subtract(Fraction(newNum, f2->den).simplify(), secondNum);
+	  int  newNum = f2->num - f2->den * int1->value;
+	  return (new Fraction(newNum, f2->den))->simplify();
 	}
 	else if (firstNum->getType() == FRACTION_TYPE && secondNum->getType() == INTEGER_TYPE){
 	  Fraction* f1 = (Fraction*) firstNum;
 	  Integer* int2 = (Integer*) secondNum;
-	  int  newNum = f1->den * int2->value;
-	  return subtract(firstNum, Fraction(newNum, f1->den).simplify());
+	  int  newNum = f1->num - f1->den * int2->value;
+	  return (new Fraction(newNum, f1->den))->simplify();
 	}
 	
 	//Subtract two Logs
@@ -161,7 +161,7 @@ Number* Operations::multiply(Number* firstNum, Number* secondNum)
 		Fraction* f2 = (Fraction*) secondNum;
 		int num = f1->num * f2->num;
 		int den = f1->den * f2->den;
-		return Fraction(num,den).simplify();
+		return new Fraction(num,den);
 	}
 	
 	//Multiply one Fraction and one Integer
@@ -215,7 +215,7 @@ Number* Operations::divide(Number* firstNum, Number* secondNum)
 	{
 		Integer* int1 = (Integer*) firstNum;
 		Integer* int2 = (Integer*) secondNum;
-		return new Integer(int1->value / int2->value);
+		return new Fraction(int1->value,int2->value);
 	}
 
 	else if (firstNum->getType() == FRACTION_TYPE

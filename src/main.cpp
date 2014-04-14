@@ -127,7 +127,7 @@ void evaluate(string input)
 		pcrecpp::RE rInt("-?\\d+"); // Integer
 		pcrecpp::RE rFrac("(-?\\d+)\\/(-?\\d+)"); // Fraction
 		pcrecpp::RE rOps("([\\+\\-\\/\\*\\^\\(\\)])"); // Operations
-		
+		pcrecpp::RE rLog("log_(\\d+)\\((\\d+)\\)"); // Logs		
 		// Used to capture numbers from regex
 		int val1 = 0;
 		int val2 = 0;
@@ -138,7 +138,12 @@ void evaluate(string input)
 		}
 		else if (rFrac.FullMatch(token, &val1, &val2))
 		{
+			
 			numStack.push_back((new Fraction(val1,val2))->simplify());
+		}
+		else if (rLog.FullMatch(token, &val1, &val2))
+		{
+			numStack.push_back(Log(val1,val2).simplify());
 		}
 		else if (rOps.FullMatch(token))
 		{
@@ -147,7 +152,7 @@ void evaluate(string input)
 			Number* val1 = numStack.back();
 			numStack.pop_back();
 		
-			cout << "d\t" << val1 << " " << val2;		
+			//cout << "d\t" << val1 << " " << val2;		
 		
 			if (token == "+")
 				numStack.push_back(Operations::add(val1,val2));
@@ -162,7 +167,7 @@ void evaluate(string input)
 		}
 		else {
 			stringstream ss;
-			ss << "Invalid token" << token;
+			ss << "Invalid token \"" << token << "\"";
 			throw invalid_argument(ss.str());
 		}
 	}
@@ -175,31 +180,51 @@ int main()
 {
 	cout << endl << "Calculator" << endl;
 	cout << "Currently working: Integers, Fractions" << endl;
-	cout << "===========================" << endl << endl;
-	string input;
-
-	cout << "===Debugging Area===";
+	cout << "Not tested: Log, Powers" << endl;
+	cout << "Not implemented: nthRoot, e, pi" << endl;
+/*	cout << "===========================" << endl;
+	
+	cout << "===Debugging Area===" << endl;
 	
 	Number* Int = new Integer(1);
+	cout << "d\t new int made" << endl;
 	Number* Frac = new Fraction(1,2);
+	cout << "d\t new frac made" << endl;
 	Number* Frac2 = new Fraction(1,2);
-
-	cout << Frac << " + " << Frac2;
-	cout << Operations::add(Frac,Frac2);
-
-	cout << Int << " + " << Frac;
-	cout << Operations::add(Frac,Int);
-	cout << Operations::add(Int,Frac);
+	cout << "d\t new frac made" << endl;
+	
+	cout << "d\t";	
+	cout << Frac << " + " << Frac2 << " = " ;
+	
+	cout << Operations::add(Frac,Frac2) << endl;
+	
+	cout << "d\t" ;
+	cout << Int << " + " << Int << " = ";
+	cout << Operations::add(Int, Int) << endl;
+	cout << Operations::add(Frac,Int) << endl;
+	cout << Operations::add(Int,Frac) << endl;
 	cout << endl;
 
-	cout << "====================";
+	cout << "====================" << endl;
+*/
+	string input;
 
 	while (true) {
-	cout << "Enter expression (spaces seperate values/operations):" << endl;
+	cout << "Enter expression: ";
 	getline(cin,input);
+
 	if (input == "quit" || input == "q")
 		return 0;	
-	evaluate(input); }
+	try {
+		evaluate(input); 
+	} catch (domain_error e) {
+		cout << e.what() << endl;
+	} catch (invalid_argument e) {
+		cout << e.what() << endl;
+	} catch (exception e) {
+		cout << "Error";
+	}
+	}
 	return 0;	
 }
 

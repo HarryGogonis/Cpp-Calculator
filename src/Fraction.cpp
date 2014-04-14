@@ -43,11 +43,13 @@ Number* Fraction::simplify()
 
 	for (i; i > 1; i--)
 	{
-		if (num % i == 0 && den % i == 0)
-			return new Fraction(num / i, den / i);
+		if (num % i == 0 && den % i == 0) {
+			this->num = num/i;
+			this->den = den/i;
+		}
 	}
-
 	return this;
+	//return new Integer(;
 }
 
 string Fraction::toString()
