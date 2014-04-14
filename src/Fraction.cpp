@@ -26,8 +26,8 @@ Fraction::Fraction(double input)
 	int count = ss.str().length();
 	const int factor = pow(10,count-2);
 	
-	Fraction* temp = new Fraction((input * factor), factor);
-	return temp->simplify();
+	this->num = input * factor;
+	this->den = factor;	
 }
 
 

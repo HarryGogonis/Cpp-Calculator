@@ -57,6 +57,7 @@ public:
 	Fraction(Integer*, Integer*);
 	Fraction(int, int);
 	Fraction(string, string);
+	Fraction(double);
 	//~Fraction();
 
 	static Number* convertDoubleToFraction(double);
