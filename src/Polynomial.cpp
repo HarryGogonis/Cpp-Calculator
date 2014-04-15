@@ -12,6 +12,19 @@ Polynomial::Polynomial(vector<Number*> numbers, vector<char> operations)
 	this->operations=operations;
 }
 
+Polynomial::Polynomial(Number* num1, char op, Number* num2) 
+{
+	Polynomial();
+	numbers.push_back(num1);
+	numbers.push_back(num2);
+	operations.push_back(op);
+}
+
+Polynomial::~Polynomial()
+{
+	
+}
+
 string Polynomial::toString()
 {
 	ostringstream oss;
@@ -24,7 +37,7 @@ string Polynomial::toString()
 
 	for (int i=0; i<capacity; i++)
 	{
-		oss << numbers[i] << " " << operations[i];
+		oss << numbers[i] << " " << operations[i] << " ";
 	}
 	
 	return oss.str();

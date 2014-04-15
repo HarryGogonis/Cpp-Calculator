@@ -24,10 +24,18 @@ Fraction::Fraction(double input)
 	ss << input;
 
 	int count = ss.str().length();
-	const int factor = pow(10,count-2);
 	
-	this->num = input * factor;
-	this->den = factor;	
+	if (count == 1) 
+	{
+		this->num= (int) input;
+		this->den= 1;
+	}
+	else {
+		const int factor = pow(10,count-2);
+
+		this->num = input * factor;
+		this->den = factor;
+	}
 }
 
 
@@ -61,8 +69,8 @@ Number* Fraction::simplify()
 			this->den = den/i;
 		}
 	}
+	
 	return this;
-	//return new Integer(;
 }
 
 string Fraction::toString()

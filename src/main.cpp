@@ -126,9 +126,10 @@ void evaluate(string input)
 		// Regex 
 		pcrecpp::RE rInt("-?\\d+"); // Integer
 		pcrecpp::RE rFrac("(-?\\d+)\\/(-?\\d+)"); // Fractiona
-		pcrecpp::RE rDec("(\\d+\\.\\d+)"); // Decimals
+		pcrecpp::RE rDec("(-?\\d+\\.\\d+)"); // Decimals
 		pcrecpp::RE rOps("([\\+\\-\\/\\*\\^\\(\\)])"); // Operations
-		pcrecpp::RE rLog("log_(\\d+)\\((\\d+)\\)"); // Logs		
+		pcrecpp::RE rLog("log_(\\d+):(-?\\d+)"); // Logs		
+		pcrecpp::RE rRoot("(-?\\d+)rt:(-?\\d+)"); // Roots
 		// Used to capture numbers from regex
 		int val1 = 0;
 		int val2 = 0;
@@ -155,6 +156,10 @@ void evaluate(string input)
 		{
 			numStack.push_back(new Irrational(token));
 		}
+		else if (rRoot.FullMatch(token, &val1, &val2))
+		{
+			numStack.push_back((new Power(new Integer(val2),new Fraction(1,val1)))->simplify());
+		}
 		else if (rOps.FullMatch(token))
 		{
 			Number* val2 = numStack.back();
@@ -173,7 +178,7 @@ void evaluate(string input)
 			else if (token == "/")
 				numStack.push_back(Operations::divide(val1,val2));
 			else if (token == "^")
-				numStack.push_back(Power(val1,val2).simplify());
+				numStack.push_back((new Power(val1,val2))->simplify());
 		}
 		else {
 			stringstream ss;
@@ -189,9 +194,7 @@ void evaluate(string input)
 int main()
 {
 	cout << endl << "Calculator" << endl;
-	cout << "Currently working: Integers, Fractions" << endl;
-	cout << "Not tested: Log, Powers" << endl;
-	cout << "Not implemented: nthRoot, e, pi" << endl;
+	cout << "Current issues: Irrationals, Polynomials" << endl;
 /*	cout << "===========================" << endl;
 	
 	cout << "===Debugging Area===" << endl;

@@ -48,7 +48,7 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 				return Operations::multiply(log1->power,log2->power);
 			}
 		else {
-			// TODO return new Polynomial(log1,"+",log2);
+			return new Polynomial(log1,'+',log2);
 		}		
 
 	}
@@ -60,10 +60,10 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 		Irrational* ir1 = (Irrational*) firstNum;
 		Irrational* ir2 = (Irrational*) secondNum;
 		if(ir1->name == ir2->name){
-			//TODO return Polynomial(2, "*", ir1->name);
+			return new Polynomial(new Integer(2), '*', ir1);
 		}
 		else {
-			//TODO return Polynomial(firstNum, "+", secondNum);
+			return new Polynomial(firstNum, '+', secondNum);
 		}
 	}
 
@@ -137,7 +137,7 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 	//For any other case create Polynomial
 	else 
 	{
-		// TODO return new Polynomial(firstNum,"+", secondNum);
+		return new Polynomial(firstNum,'+', secondNum);
 	}
 	//TODO For debugging
 	throw  runtime_error("Number type not supported");
@@ -195,7 +195,7 @@ Number* Operations::subtract(Number* firstNum, Number* secondNum)
 				return Operations::divide(log1->power,log2->power);
 			}
 		else {
-			// TODO return new Polynomial(log1,"+",log2); OR Change-of-base?
+			return new Polynomial(log1,'+',log2);// OR Change-of-base?
 		}		
 
 	}
@@ -209,14 +209,14 @@ Number* Operations::subtract(Number* firstNum, Number* secondNum)
 		if(ir1->name == ir2->name)
 			return new Integer(0);
 		else {
-			//TODO return Polynomial(firstNum, "-", secondNum);
+			return new Polynomial(firstNum, '-', secondNum);
 		}
 	}
 	
 	//For any other case create Polynomial
 	else 
 	{
-		// TODO return new Polynomial(firstNum,"-", secondNum);
+		return new Polynomial(firstNum,'-', secondNum);
 	}
 
 	//TODO For debugging
@@ -271,7 +271,7 @@ Number* Operations::multiply(Number* firstNum, Number* secondNum)
 				return new Log(log1->base,log2->power);
 			}
 		else {
-			// TODO return new Polynomial(log1,"*",log2); 
+			return new Polynomial(log1,'*',log2); 
 		}		
 
 	}
@@ -284,7 +284,7 @@ Number* Operations::multiply(Number* firstNum, Number* secondNum)
 		if(pow1->base == pow2->base)
 			return new Power(pow1->base, add(pow1->power, pow2->power));
 		else{
-			//TODO return new Polynomial(firstNum, "*", secondNum);
+			return new Polynomial(firstNum, '*', secondNum);
 		}
 	}
 	
@@ -297,14 +297,14 @@ Number* Operations::multiply(Number* firstNum, Number* secondNum)
 		if(ir1->name == ir2->name)
 			return new Power(firstNum, new Integer(2));
 		else {
-			//TODO return Polynomial(firstNum, "*", secondNum);
+			return new Polynomial(firstNum, '*', secondNum);
 		}
 	}
 	
 	//For any other case create Polynomial
 	else 
 	{
-		// TODO return new Polynomial(firstNum,"*", secondNum);
+		return new Polynomial(firstNum,'*', secondNum);
 	}
 
 	//TODO For debugging
@@ -337,7 +337,7 @@ Number* Operations::divide(Number* firstNum, Number* secondNum)
 				return new Log(log1->base,log2->power);
 			}
 		else {
-			// TODO return new Polynomial(log1,"*",log2); 
+			return new Polynomial(log1,'*',log2); 
 		}		
 
 	}
@@ -350,7 +350,7 @@ Number* Operations::divide(Number* firstNum, Number* secondNum)
 		if(pow1->base == pow2->base)
 			return new Power(pow1->base, subtract(pow1->power, pow2->power));
 		else{
-			//TODO return new Polynomial(firstNum, "/", secondNum);
+			return new Polynomial(firstNum, '/', secondNum);
 		}
 	}
 	
@@ -363,7 +363,7 @@ Number* Operations::divide(Number* firstNum, Number* secondNum)
 		if(ir1->name == ir2->name)
 			return new Integer(1);
 		else {
-			//TODO return Polynomial(firstNum, "/", secondNum);
+			return new Polynomial(firstNum, '/', secondNum);
 		}
 	}
 	
@@ -371,7 +371,7 @@ Number* Operations::divide(Number* firstNum, Number* secondNum)
 	//For any other case create Polynomial
 	else 
 	{
-		// TODO return new Polynomial(firstNum,"+", secondNum);
+		return new Polynomial(firstNum,'+', secondNum);
 	}
 	
 	//TODO For debugging
