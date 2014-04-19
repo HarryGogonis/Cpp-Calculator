@@ -14,6 +14,7 @@ using namespace std;
 #define LOG_TYPE "Log"
 #define POLYNOMIAL_TYPE "Polynomial"
 #define POWER_TYPE "Power"
+#define ROOT_TYPE "Root"
 
 // Base class
 class Number
@@ -134,6 +135,22 @@ public:
 	;
 };
 
+class Root: public Number
+{
+public:
+	int root;
+	Number* base;
+
+	//Power(string, string);
+	Root(Number*, Number*);
+	Root(int, int);
+	virtual ~Root();
+
+	Number* simplify();
+	string toString();
+	double getEstimate();
+	string getType(){ return ROOT_TYPE; };
+};
 class Polynomial: public Number
 {
 	public:

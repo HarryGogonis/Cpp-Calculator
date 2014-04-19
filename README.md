@@ -38,4 +38,4 @@ Example of valid input:
     
     1/2 + 3/2
     
-    log_2(2) + 1
+    log_2:2 + 1

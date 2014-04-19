@@ -6,6 +6,11 @@
 #include "Number.h"
 #include "Operations.h"
 #include <stdexcept>
+
+using namespace std;
+
+Number* ans;
+
 struct operation
 {
 	string symbol;
@@ -15,8 +20,6 @@ struct operation
 	operation(string s, int p, char a):symbol(s),prec(p),assoc(a) {};
 	operation() { operation("null",-1,'0'); };
 };
-
-using namespace std;
 
 vector<string> split(const string &s, char delim)
 {
@@ -125,7 +128,7 @@ void evaluate(string input)
 		
 		// Regex 
 		pcrecpp::RE rInt("-?\\d+"); // Integer
-		pcrecpp::RE rFrac("(-?\\d+)\\/(-?\\d+)"); // Fractiona
+		pcrecpp::RE rFrac("(-?\\d+)\\/(-?\\d+)"); // Fraction
 		pcrecpp::RE rDec("(-?\\d+\\.\\d+)"); // Decimals
 		pcrecpp::RE rOps("([\\+\\-\\/\\*\\^\\(\\)])"); // Operations
 		pcrecpp::RE rLog("log_(\\d+):(-?\\d+)"); // Logs		
@@ -158,7 +161,11 @@ void evaluate(string input)
 		}
 		else if (rRoot.FullMatch(token, &val1, &val2))
 		{
-			numStack.push_back((new Power(new Integer(val2),new Fraction(1,val1)))->simplify());
+			numStack.push_back(Power(new Integer(val2),new Fraction(1,val1)).simplify());
+		}
+		else if (token == "ans" || token == "Ans")
+		{
+			numStack.push_back(ans);
 		}
 		else if (rOps.FullMatch(token))
 		{
@@ -186,15 +193,17 @@ void evaluate(string input)
 			throw invalid_argument(ss.str());
 		}
 	}
-	if (numStack.size() > 0)
+	if (numStack.size() > 0) {
 		cout << " = " <<  numStack[0] << endl;
-
+		ans = numStack[0];
+	}
 }
 
 int main()
 {
-	cout << endl << "Calculator" << endl;
-	cout << "Current issues: Irrationals, Polynomials" << endl;
+	cout << endl << "C++ Calculator" << endl;
+	cout << 	"=============="<< endl;
+	//cout << "Current issues: Irrationals, Polynomials" << endl;
 /*	cout << "===========================" << endl;
 	
 	cout << "===Debugging Area===" << endl;
@@ -223,11 +232,20 @@ int main()
 	string input;
 
 	while (true) {
-	cout << "Enter expression: ";
+	cout << ">> ";
 	getline(cin,input);
 
 	if (input == "quit" || input == "q")
 		return 0;	
+	if (input == "help")
+	{
+		cout << "All expressions must be seperated by a space." << endl;
+		cout << "Examples of valid expressions:" << endl;
+		cout << "\t( 1/2 + 3/2 ) *  5 ^ 2" << endl;
+		cout << "\tlog_10:10" << endl;
+		cout << "\t2rt:16" << endl;
+		continue;
+	}
 	try {
 		evaluate(input); 
 	} catch (domain_error e) {
