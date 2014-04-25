@@ -34,8 +34,21 @@ Tokens must be seperated by a space.
 
 Example of valid input:
 
+''''
+
     3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3
     
     1/2 + 3/2
     
     log_2:2 + 1
+
+    2rt:16
+
+''''
+
+##Bugs/Errors
+
+* Can currently only take nth roots involving integers.
+
+* Logs, roots, and powers with pi and e currently not supported 
+ 

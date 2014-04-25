@@ -138,13 +138,13 @@ public:
 class Root: public Number
 {
 public:
-	int root;
+	Number* root;
 	Number* base;
 
 	//Power(string, string);
 	Root(Number*, Number*);
 	Root(int, int);
-	virtual ~Root();
+	virtual	~Root();
 
 	Number* simplify();
 	string toString();

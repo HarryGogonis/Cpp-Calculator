@@ -42,10 +42,18 @@ Number* Power::simplify()
 //		return new Integer((int) pow(base->getEstimate(), power->getEstimate()));
 		const int x = base->getEstimate();
 		const int n = power->getEstimate();
+		
+		if (n==0)
+			return new Integer(1);
+
 		int result = x;
 		for (int i=1; i<n; i++)
-			result *= x;
-		return new Integer(result);
+		result *= x;
+
+		if (n<0)
+			return new Fraction(1,result);
+		else
+			return new Integer(result);
 	}
 	
 	else if(base->getType() == FRACTION_TYPE && power->getType() == INTEGER_TYPE)
@@ -60,14 +68,11 @@ Number* Power::simplify()
 	}
 	else if(power->getType() == FRACTION_TYPE && base->getType() == INTEGER_TYPE)
 	{
-		// TODO this might be a sloppy solution. Should return root!
-		Fraction* f1 = (Fraction*) power;
+		Fraction* frac1 = (Fraction*) power;
 		Integer* int2 = (Integer*) base;
-		double ans = pow(base->getEstimate(), power->getEstimate());
-		return (new Fraction(ans))->simplify();
+		if (frac1->num == 1) 
+			return (new Root(int2->getEstimate(),frac1->den))->simplify();
 	}
-	else throw runtime_error("Power couldn't be simplified");
-	// Segfault
 	return this;
 }
 

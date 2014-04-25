@@ -52,7 +52,8 @@ deque<string> parseInput(vector<string> x)
 		// Handle parenthesis
 		if (x[i] == ")")
 		{
-			for (int i=0; i<oper.size();i++)
+			//for (int i=0; i<oper.size();i++)
+			while (!oper.empty())
 			{
 				if (oper.back().symbol == "(" ) {
 					oper.pop_back();
@@ -127,7 +128,7 @@ void evaluate(string input)
 		string token = queue[i];
 		
 		// Regex 
-		pcrecpp::RE rInt("-?\\d+"); // Integer
+		pcrecpp::RE rInt("(-?\\d+)"); // Integer
 		pcrecpp::RE rFrac("(-?\\d+)\\/(-?\\d+)"); // Fraction
 		pcrecpp::RE rDec("(-?\\d+\\.\\d+)"); // Decimals
 		pcrecpp::RE rOps("([\\+\\-\\/\\*\\^\\(\\)])"); // Operations
@@ -138,9 +139,9 @@ void evaluate(string input)
 		int val2 = 0;
 		double val3 = 0;
 			
-		if (rInt.FullMatch(token))
+		if (rInt.FullMatch(token, &val1))
 		{
-			numStack.push_back(new Integer(token));
+			numStack.push_back(new Integer(val1));
 		}
 		else if (rFrac.FullMatch(token, &val1, &val2))
 		{
@@ -161,7 +162,7 @@ void evaluate(string input)
 		}
 		else if (rRoot.FullMatch(token, &val1, &val2))
 		{
-			numStack.push_back(Power(new Integer(val2),new Fraction(1,val1)).simplify());
+			numStack.push_back((new Root(val2,val1))->simplify());
 		}
 		else if (token == "ans" || token == "Ans")
 		{
@@ -203,32 +204,16 @@ int main()
 {
 	cout << endl << "C++ Calculator" << endl;
 	cout << 	"=============="<< endl;
-	//cout << "Current issues: Irrationals, Polynomials" << endl;
-/*	cout << "===========================" << endl;
 	
 	cout << "===Debugging Area===" << endl;
 	
-	Number* Int = new Integer(1);
-	cout << "d\t new int made" << endl;
-	Number* Frac = new Fraction(1,2);
-	cout << "d\t new frac made" << endl;
-	Number* Frac2 = new Fraction(1,2);
-	cout << "d\t new frac made" << endl;
-	
-	cout << "d\t";	
-	cout << Frac << " + " << Frac2 << " = " ;
-	
-	cout << Operations::add(Frac,Frac2) << endl;
-	
-	cout << "d\t" ;
-	cout << Int << " + " << Int << " = ";
-	cout << Operations::add(Int, Int) << endl;
-	cout << Operations::add(Frac,Int) << endl;
-	cout << Operations::add(Int,Frac) << endl;
-	cout << endl;
-
+	Number* int1 = new Integer(2);
+	Number*  ir1 = new Irrational("pi");
+	Number*  ir2 = new Irrational("pi");
+	Number* poly1 = Operations::add(ir1,ir2);
+	Number* poly2 = Operations::add(int1,poly1);	
+	cout << "2pi + 2 = " << poly2 << endl;
 	cout << "====================" << endl;
-*/
 	string input;
 
 	while (true) {

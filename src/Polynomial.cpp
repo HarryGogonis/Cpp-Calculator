@@ -37,7 +37,10 @@ string Polynomial::toString()
 
 	for (int i=0; i<capacity; i++)
 	{
-		oss << numbers[i] << " " << operations[i] << " ";
+		if (i<operations.size())
+			oss << numbers[i] << " " << operations[i] << " ";
+		else
+			oss << numbers[i];
 	}
 	
 	return oss.str();
@@ -45,6 +48,7 @@ string Polynomial::toString()
 
 Number* Polynomial::simplify()
 {
+	//TODO Implement Simplify
 }
 
 

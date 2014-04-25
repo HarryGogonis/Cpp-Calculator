@@ -1,6 +1,8 @@
 #include "Operations.h"
 #include <stdexcept>
 
+#include <iostream>
+
 Number* Operations::add(Number* firstNum, Number* secondNum)
 {
 	// Add two Integers
@@ -92,9 +94,9 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 			poly2 = (Polynomial*) add(poly2, notAdded[k]);
 		return new Polynomial(poly2->numbers, poly2->operations);
 	}
-
+	/*
 	//Add a Polynomial and another Number
-	else if(firstNum->getType() == POLYNOMIAL_TYPE)
+	else if(firstNum->getType() == POLYNOMIAL_TYPE ||)
 	{
 		Polynomial* poly1 = (Polynomial*) firstNum;
 		vector<Number*> nums = poly1->numbers;
@@ -116,10 +118,29 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 	else if (secondNum->getType() == POLYNOMIAL_TYPE)
 	{
 		Polynomial* poly2 = (Polynomial*) secondNum;
-		vector<Number*> nums = poly2->numbers;
+		vector<Number*> nums(poly2->numbers);
+		vector<char> ops(poly2->operations);
+
+		while (!nums.empty())
+		{
+			Number* num1 = nums.back();
+			Number* num2 = firstNum;
+		
+			cout << num1 << " + " << num2 << " | " << ops.back() <<endl;
+			if (num1->getType() == num2->getType())
+			{
+				if (ops.back() != '*')
+					return add(num1,num2);
+				
+			}
+			else 
+				ops.pop_back();
+			nums.pop_back();
+		}*/
+		/*
 		int i = 0;
 		bool a = false;
-		while(i<nums.size() && !a){
+		while(i<nums.size() && !){
 			if (nums[i]->getType() == firstNum->getType()){
 				nums[i] = add(firstNum, nums[i]);
 				a = true;
@@ -133,7 +154,8 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 		}
 		return new Polynomial(nums, poly2->operations);
 	}
-	
+		*/
+		
 	//For any other case create Polynomial
 	else 
 	{
