@@ -31,16 +31,35 @@ string Log::toString()
 Number* Log::simplify()
 {
 	if (base->getEstimate() == power->getEstimate())
-	{
 		return new Integer(1);
-	}
+	if (power->getEstimate() == 1.0)
+		return new Integer(0);
 	if (power->getType() == INTEGER_TYPE
 		&& base->getType() == INTEGER_TYPE)
 	{
-		if (((int)power->getEstimate() % (int)base->getEstimate()) == 0)
+		
+		/*if (((int)power->getEstimate() % (int)base->getEstimate()) == 0)
 		{
 			return new Integer((int) (log(power->getEstimate()) / log(base->getEstimate())));
-		}
+		}*/
+			int pow = ((Integer*) power)->value;
+			int base_ = ((Integer*) base)->value;
+			int x = -1;
+			for (int i=0; i<pow;i++)
+			{
+				int result = 1;
+				for (int j=0;j<i;j++)
+					result *= base_;
+				if (result == pow)
+				{
+					x = i;
+					break;
+				}
+				if (result > pow)
+					break;
+			}
+			if (x> 0)
+				return new Integer(x);
 	}
 	return this;
 }

@@ -33,10 +33,12 @@ vector<string> split(const string &s, char delim)
 	return elems;
 }
 
+/* 
+ * Preforms the Shunting-Yard Algorithm
+ * See: https://en.wikipedia.org/wiki/Shunting_yard_algorithm
+ */
 deque<string> parseInput(vector<string> x)
 {
-
-	// Shunting-Yard Algoirthm
 	
 	// Output Queue
 	deque<string> output;
@@ -44,6 +46,7 @@ deque<string> parseInput(vector<string> x)
 	// Operator Stack
 	vector<operation> oper;
 	
+	// Put operations on the stack, numbers to queue
 	for (int i=0; i<x.size(); i++) 
 	{
 		// Match basic operators
@@ -76,8 +79,6 @@ deque<string> parseInput(vector<string> x)
 			else if (x[i] == "^") op1 = operation("^",4,'R');
 			else if (x[i] == "(") op1 = operation("(",9,'L');
 			
-			//cout << "op 1 " << op1.symbol;
-			//cout << "op 2 " << op2.symbol;
 			if (!oper.empty())
 			{
 				operation op2 = oper.back();
@@ -95,10 +96,9 @@ deque<string> parseInput(vector<string> x)
 		else {
 			output.push_back(x[i]);	
 		}
-		//pcrecpp::RE rInt("-?\\d+");
-		//pcrecpp::RE rFrac("(-?\\d+)\\/(-?\\d+)");
 	}
-	
+
+	// Pop all leftover operations to the queue	
 	while (!oper.empty())
 	{
 		operation op = oper.back();
@@ -107,7 +107,7 @@ deque<string> parseInput(vector<string> x)
 		output.push_back(string(oper.back().symbol));
 		oper.pop_back();
 	}
-	/*
+	/* For Debugging:
 	cout << "Parsed Input: ";
 	for (int i=0; i<output.size(); i++)
 		cout << output[i] << " ";
@@ -116,6 +116,12 @@ deque<string> parseInput(vector<string> x)
 	return output;	
 }
 
+/*
+ * This method drives all of the calculations
+ * Takes in a mathematical expression as a string
+ * Each token must have a space inbetween
+ * EX: "5 * ( 1 + 10 ) ^ 2"
+*/
 void evaluate(string input)
 {
 	vector<string> inputTokens = split(input,' ');
@@ -154,7 +160,7 @@ void evaluate(string input)
 		}*/
 		else if (rLog.FullMatch(token, &val1, &val2))
 		{
-			numStack.push_back(Log(val1,val2).simplify());
+			numStack.push_back((new Log(val1,val2))->simplify());
 		}
 		else if (token == "e" || token == "pi")
 		{
@@ -204,16 +210,19 @@ int main()
 {
 	cout << endl << "C++ Calculator" << endl;
 	cout << 	"=============="<< endl;
-	
-	cout << "===Debugging Area===" << endl;
-	
+	/*cout << "===Debugging Area===" << endl;
 	Number* int1 = new Integer(2);
+	Number* int2 = new Integer(2);
+	Number* int3 = new Integer(3);
+	cout << int1->equals(int2) << endl;
+	cout << int1->equals(int3) << endl;
 	Number*  ir1 = new Irrational("pi");
 	Number*  ir2 = new Irrational("pi");
 	Number* poly1 = Operations::add(ir1,ir2);
 	Number* poly2 = Operations::add(int1,poly1);	
 	cout << "2pi + 2 = " << poly2 << endl;
-	cout << "====================" << endl;
+	cout << "====================" << endl;*/	
+
 	string input;
 
 	while (true) {

@@ -50,10 +50,11 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 	{
 		Log* log1 = (Log*) firstNum;
 		Log* log2 = (Log*) secondNum;
-		if (log1->base == log2->base)
-			{
-				return Operations::multiply(log1->power,log2->power);
-			}
+		if ((log1->base)->equals(log2->base))
+		{
+			Number* newPower = multiply(log1->power,log2->power);
+			return (new Log(log1->base,newPower))->simplify();	
+		}
 		else {
 			return new Polynomial(log1,'+',log2);
 		}		
@@ -216,10 +217,11 @@ Number* Operations::subtract(Number* firstNum, Number* secondNum)
 	{
 		Log* log1 = (Log*) firstNum;
 		Log* log2 = (Log*) secondNum;
-		if (log1->base == log2->base)
+		if ((log1->base)->equals(log2->base))
 			{
 
-				return Operations::divide(log1->power,log2->power);
+				Number* newPower = divide(log1->power,log2->power);
+				return (new Log(log1->base,newPower))->simplify();
 			}
 		else {
 			return new Polynomial(log1,'+',log2);// OR Change-of-base?
@@ -293,14 +295,13 @@ Number* Operations::multiply(Number* firstNum, Number* secondNum)
 	{
 		Log* log1 = (Log*) firstNum;
 		Log* log2 = (Log*) secondNum;
-		if (log1->power == log2->base)
+		/*if (log1->power == log2->base)
 			{
 				return new Log(log1->base,log2->power);
 			}
-		else {
+		else {*/
 			return new Polynomial(log1,'*',log2); 
-		}		
-
+		//}		
 	}
 
 	//Multiply two Powers
