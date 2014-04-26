@@ -1,7 +1,12 @@
 #include "Operations.h"
 #include <stdexcept>
-
 #include <iostream>
+
+/*
+ * TODO
+ * Minimize. For example, store firstNum->getType()
+ * then in conditionals put the variable
+ */
 
 Number* Operations::add(Number* firstNum, Number* secondNum)
 {
@@ -309,7 +314,18 @@ Number* Operations::multiply(Number* firstNum, Number* secondNum)
 			return new Polynomial(firstNum, '*', secondNum);
 		}
 	}
-	
+	// Multiply two Roots
+	else if (firstNum->getType() == ROOT_TYPE && secondNum->getType() == ROOT_TYPE)
+	{
+		Root* rt1 = (Root*) firstNum;
+		Root* rt2 = (Root*) secondNum;
+		if ((rt1->root)->equals(rt2->root))
+		{
+			Number* newBase = multiply(rt1->base,rt2->base);
+			return Root(newBase,rt1->root).simplify();
+			
+		}
+	}	
 	//Multiply Two Irrationals of same type
 	else if (firstNum->getType() == IRRATIONAL_TYPE
 		&& secondNum->getType() == IRRATIONAL_TYPE)
@@ -324,14 +340,7 @@ Number* Operations::multiply(Number* firstNum, Number* secondNum)
 	}
 	
 	//For any other case create Polynomial
-	else 
-	{
-		return new Polynomial(firstNum,'*', secondNum);
-	}
-
-	//TODO For debugging
-	throw  runtime_error("Number type not supported");
-	return new Integer(-1);	
+	return new Polynomial(firstNum,'*', secondNum);
 }
 
 Number* Operations::divide(Number* firstNum, Number* secondNum)

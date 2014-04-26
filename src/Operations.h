@@ -10,6 +10,7 @@ class Operations {
 		static Number* multiply(Number*, Number*);
 		static Number* divide(Number*, Number*);
 		static Number* pow(Number*, Number*);
+		static Number* equals(Number*, Number*);
 };
 
 #endif

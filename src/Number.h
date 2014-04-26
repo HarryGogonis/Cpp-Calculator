@@ -5,7 +5,7 @@
 #include <sstream>
 #include <math.h>
 #include <vector>
-
+#include <iostream>
 using namespace std;
 
 #define FRACTION_TYPE "Fraction"
@@ -28,7 +28,13 @@ public:
 	friend ostream& operator<<(ostream& out, Number* num)
 	{
 		return out << num->toString();
+	};
+	
+	bool equals(Number* num)
+	{
+		return getEstimate() == num->getEstimate();
 	}
+
 };
 
 class Integer: public Number
@@ -42,11 +48,7 @@ public:
 	Number* simplify();
 	string toString();
 	double getEstimate();
-	string getType()
-	{
-		return INTEGER_TYPE;
-	}
-	;
+	string getType(){ return INTEGER_TYPE; };
 };
 
 class Fraction: public Number
@@ -65,12 +67,7 @@ public:
 	Number* simplify();
 	string toString();
 	double getEstimate();
-	string getType()
-	{
-		return FRACTION_TYPE;
-	}
-	;
-
+	string getType(){ return FRACTION_TYPE; };
 };
 
 class Log: public Number
@@ -87,11 +84,7 @@ public:
 	Number* simplify();
 	string toString();
 	double getEstimate();
-	string getType()
-	{
-		return LOG_TYPE;
-	}
-	;
+	string getType(){ return LOG_TYPE; };
 };
 
 class Irrational: public Number
@@ -106,12 +99,7 @@ public:
 	string toString();
 	double getEstimate();
 	//virtual ~Irrational();
-	string getType()
-	{
-		return IRRATIONAL_TYPE;
-	}
-	;
-
+	string getType(){ return IRRATIONAL_TYPE; };
 };
 
 class Power: public Number
@@ -128,11 +116,7 @@ public:
 	Number* simplify();
 	string toString();
 	double getEstimate();
-	string getType()
-	{
-		return POWER_TYPE;
-	}
-	;
+	string getType(){ return POWER_TYPE; };
 };
 
 class Root: public Number
@@ -153,23 +137,22 @@ public:
 };
 class Polynomial: public Number
 {
-	public:
-		vector<Number*> numbers;
-		vector<char> operations;
-		
-		Polynomial();
-		Polynomial(string);
-		Polynomial(vector<Number*>, vector<char>);	
-		Polynomial(Number*, char, Number*);
-		~Polynomial();
+public:
+	vector<Number*> numbers;
+	vector<char> operations;
+	
+	Polynomial();
+	Polynomial(string);
+	Polynomial(vector<Number*>, vector<char>);	
+	Polynomial(Number*, char, Number*);
+	~Polynomial();
 
-		Number* join(Number*);
-		Number* simplify();
-		string toString();
-		double getEstimate();
-		string getType() { return POLYNOMIAL_TYPE; };	
-
-		Number* operator+(Number*);
+	Number* join(Number*);
+	Number* simplify();
+	string toString();
+	double getEstimate();
+	string getType() { return POLYNOMIAL_TYPE; };	
+	//Number* operator+(Number* num);
 };
 
 
