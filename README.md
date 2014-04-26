@@ -34,8 +34,6 @@ Tokens must be seperated by a space.
 
 Example of valid input:
 
-''''
-
     3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3
     
     1/2 + 3/2
@@ -43,8 +41,6 @@ Example of valid input:
     log_2:2 + 1
 
     2rt:16
-
-''''
 
 ##Bugs/Errors
 
