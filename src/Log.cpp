@@ -1,5 +1,6 @@
 #include "Number.h"
 #include <stdexcept>
+#include <cstdlib>
 
 Log::Log(Number* base, Number* power)
 {
@@ -10,7 +11,29 @@ Log::Log(Number* base, Number* power)
 	this->base = base;
 	this->power = power;
 }
-
+Log::Log(string base, string power)
+{
+	if (base == "pi")
+		this->base = new Irrational("pi");
+	else if (base == "e")
+		this->base = new Irrational("e");
+	else {
+		int b = atoi(base.c_str());
+		if (b < 0)
+			throw domain_error("Base < 0");
+		this->base = new Integer(b);
+	}
+	if (power == "pi")
+		this->power = new Irrational("pi");
+	else if (power == "e")
+		this->power = new Irrational("e");
+	else  {
+		int p = atoi(power.c_str());
+		if (p <= 0)
+			throw domain_error("Domain Error");
+		this->power= new Integer(p);
+	}
+}
 Log::Log(int base, int power)
 {
 	if (base < 0 || power <= 0)

@@ -147,7 +147,8 @@ public:
 	Polynomial(Number*, char, Number*);
 	~Polynomial();
 
-	Number* join(Number*);
+	Number* join(Polynomial*,char);
+	Number* push_back(Number*, char);
 	Number* simplify();
 	string toString();
 	double getEstimate();

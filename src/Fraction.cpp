@@ -52,6 +52,11 @@ Fraction::Fraction(double input)
 
 Number* Fraction::simplify()
 {
+	if (num < 0 && den < 0)
+	{
+		num = -num;
+		den = -den;
+	}
 	if (num % den == 0)
 		return new Integer(num / den);
 

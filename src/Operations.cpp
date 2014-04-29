@@ -78,6 +78,11 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 	//Add two Polynomials
 	else if (firstNum->getType() == POLYNOMIAL_TYPE && secondNum->getType() == POLYNOMIAL_TYPE)
 	{
+		Polynomial* p1 = (Polynomial*) firstNum;
+		Polynomial* p2 = (Polynomial*) secondNum;
+		return p1->join(p2,'+');
+	}
+	/*
 		Polynomial* poly1 = (Polynomial*) firstNum;
 		Polynomial* poly2 = (Polynomial*) secondNum;
 		vector<Number*> nums1 = poly2->numbers;
@@ -100,7 +105,6 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 			poly2 = (Polynomial*) add(poly2, notAdded[k]);
 		return new Polynomial(poly2->numbers, poly2->operations);
 	}
-	/*
 	//Add a Polynomial and another Number
 	else if(firstNum->getType() == POLYNOMIAL_TYPE ||)
 	{
@@ -162,10 +166,15 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 	}
 		*/
 		
+	else if(firstNum->getType() == POLYNOMIAL_TYPE)
+	{
+		Polynomial* p1 = (Polynomial*) firstNum;
+		return p1->push_back(secondNum,'+');
+	}
 	//For any other case create Polynomial
 	else 
 	{
-		return new Polynomial(firstNum,'+', secondNum);
+		return (new Polynomial(firstNum,'+', secondNum))->simplify();
 	}
 	//TODO For debugging
 	throw  runtime_error("Number type not supported");
@@ -242,6 +251,12 @@ Number* Operations::subtract(Number* firstNum, Number* secondNum)
 		}
 	}
 	
+	else if (firstNum->getType() == POLYNOMIAL_TYPE && secondNum->getType() == POLYNOMIAL_TYPE)
+	{
+		Polynomial* p1 = (Polynomial*) firstNum;
+		Polynomial* p2 = (Polynomial*) secondNum;
+		return p1->join(p2,'-');
+	}
 	//For any other case create Polynomial
 	else 
 	{
@@ -340,6 +355,12 @@ Number* Operations::multiply(Number* firstNum, Number* secondNum)
 		}
 	}
 	
+	else if (firstNum->getType() == POLYNOMIAL_TYPE && secondNum->getType() == POLYNOMIAL_TYPE)
+	{
+		Polynomial* p1 = (Polynomial*) firstNum;
+		Polynomial* p2 = (Polynomial*) secondNum;
+		return p1->join(p2,'*');
+	}
 	//For any other case create Polynomial
 	return new Polynomial(firstNum,'*', secondNum);
 }
@@ -400,6 +421,12 @@ Number* Operations::divide(Number* firstNum, Number* secondNum)
 	}
 	
 
+	else if (firstNum->getType() == POLYNOMIAL_TYPE && secondNum->getType() == POLYNOMIAL_TYPE)
+	{
+		Polynomial* p1 = (Polynomial*) firstNum;
+		Polynomial* p2 = (Polynomial*) secondNum;
+		return p1->join(p2,'/');
+	}
 	//For any other case create Polynomial
 	else 
 	{

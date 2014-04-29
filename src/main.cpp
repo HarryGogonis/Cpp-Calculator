@@ -138,12 +138,14 @@ void evaluate(string input)
 		pcrecpp::RE rFrac("(-?\\d+)\\/(-?\\d+)"); // Fraction
 		pcrecpp::RE rDec("(-?\\d+\\.\\d+)"); // Decimals
 		pcrecpp::RE rOps("([\\+\\-\\/\\*\\^\\(\\)])"); // Operations
-		pcrecpp::RE rLog("log_(\\d+):(-?\\d+)"); // Logs		
+		pcrecpp::RE rLog("log_(\\w+):(-?\\w+)"); // Logs		
 		pcrecpp::RE rRoot("(-?\\d+)rt:(-?\\d+)"); // Roots
 		// Used to capture numbers from regex
 		int val1 = 0;
 		int val2 = 0;
 		double val3 = 0;
+		string str1= " ";
+		string str2= " ";
 			
 		if (rInt.FullMatch(token, &val1))
 		{
@@ -158,9 +160,10 @@ void evaluate(string input)
 		{
 			numStack.push_back(new Fraction(val3));
 		}*/
-		else if (rLog.FullMatch(token, &val1, &val2))
+		else if (rLog.FullMatch(token, &str1,&str2))
 		{
-			numStack.push_back((new Log(val1,val2))->simplify());
+			numStack.push_back(Log(str1,str2).simplify());
+		//	numStack.push_back((new Log(str1,str2))->simplify());
 		}
 		else if (token == "e" || token == "pi")
 		{

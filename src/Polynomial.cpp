@@ -1,4 +1,6 @@
 #include "Number.h"
+#include "Operations.h"
+#include <iostream>
 
 Polynomial::Polynomial()
 {
@@ -18,6 +20,27 @@ Polynomial::Polynomial(Number* num1, char op, Number* num2)
 	numbers.push_back(num1);
 	numbers.push_back(num2);
 	operations.push_back(op);
+}
+
+Number* Polynomial::join(Polynomial* p2, char op)
+{
+	for (int i=0; i<p2->numbers.size(); i++)
+	{
+		numbers.push_back(p2->numbers[i]);
+	}
+	operations.push_back(op);	
+	for (int i=0; i<p2->operations.size(); i++)
+	{
+		operations.push_back(p2->operations[i]);
+	}
+	return this->simplify();	
+}
+
+Number* Polynomial::push_back(Number* num, char op)
+{
+	numbers.push_back(num);
+	operations.push_back(op);
+	return this->simplify();
 }
 
 Polynomial::~Polynomial()
@@ -48,6 +71,25 @@ string Polynomial::toString()
 
 Number* Polynomial::simplify()
 {
+	//cout << this << endl;
+	/*
+	for (int i=0; i<numbers.size();i++)
+	{
+		for (int j=(i+1);j<numbers.size();j++)
+		{
+			char firstOp_Left = operations[i-1];
+			char firstOp_Right = operations[i];
+			char secondOp_Left = operations[j-1];
+			char secondOp_Right = operations[j];
+			if (numbers[i]->getType() == numbers[j]->getType()){
+				if (secondOp_Left = '+' && firstOp_Left != '*' && firstOp_Right != '*' && secondOp_Right != '*') {
+					numbers.push_back(Operations::add(numbers[i],numbers[j]));
+				}
+				//cout << "(" << numbers[i] << "+" << numbers[j] << ")" << endl;
+			}
+		}
+	}*/
+	return this;
 	//TODO Implement Simplify
 }
 
