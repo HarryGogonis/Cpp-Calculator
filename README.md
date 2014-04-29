@@ -44,7 +44,5 @@ Example of valid input:
 
 ##Bugs/Errors
 
-* Can currently only take nth roots involving integers.
-
-* Logs, roots, and powers with pi and e currently not supported 
+* Some complex cases are currently not implemented and therefore will not solve.
  
