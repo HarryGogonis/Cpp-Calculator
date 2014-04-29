@@ -1,4 +1,7 @@
-#COP3503 Project #1
+# C++ Calculator
+
+This is a simple calculator that attempts to solve basic mathematic expressions in simplified form, without using floats or doubles.
+
 
 ##Dependancies
 
