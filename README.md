@@ -6,13 +6,20 @@
 
 ###Instructions for installing PCRE:
 
-Download the latest version [here](http://ftp.csx.cam.ac.uk/pub/software/programming/pcre/)
+##### Install using package manager
 
-Extract the file
+    sudo apt-get install
+
+
+##### Install from source
+
+1. Download the latest version [here](http://ftp.csx.cam.ac.uk/pub/software/programming/pcre/)
+
+2. Extract the files
 
     tar -zxf pcre-833.tar.bz2 
 
-Build the source code
+3. Build the source code
 
     ./configure
 
@@ -20,7 +27,7 @@ Build the source code
 
     make install
 
-### Installing Calculator
+### Installing/Running Calculator
 
     cd /path/to/dir
 
