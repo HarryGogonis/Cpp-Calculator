@@ -171,6 +171,11 @@ Number* Operations::add(Number* firstNum, Number* secondNum)
 		Polynomial* p1 = (Polynomial*) firstNum;
 		return p1->push_back(secondNum,'+');
 	}
+	else if(secondNum->getType() == POLYNOMIAL_TYPE)
+	{
+		Polynomial* p2 = (Polynomial*) secondNum;
+		return p2->push_back(firstNum,'+');
+	}
 	//For any other case create Polynomial
 	else 
 	{
@@ -257,6 +262,17 @@ Number* Operations::subtract(Number* firstNum, Number* secondNum)
 		Polynomial* p2 = (Polynomial*) secondNum;
 		return p1->join(p2,'-');
 	}
+        else if(firstNum->getType() == POLYNOMIAL_TYPE)
+        {
+                Polynomial* p1 = (Polynomial*) firstNum;
+                return p1->push_back(secondNum,'-');
+        }
+        else if(secondNum->getType() == POLYNOMIAL_TYPE)
+        {
+                Polynomial* p2 = (Polynomial*) secondNum;
+                return p2->push_back(firstNum,'-');
+        }
+
 	//For any other case create Polynomial
 	else 
 	{
@@ -361,6 +377,17 @@ Number* Operations::multiply(Number* firstNum, Number* secondNum)
 		Polynomial* p2 = (Polynomial*) secondNum;
 		return p1->join(p2,'*');
 	}
+        else if(firstNum->getType() == POLYNOMIAL_TYPE)
+        {
+                Polynomial* p1 = (Polynomial*) firstNum;
+                return p1->push_back(secondNum,'*');
+        }
+        else if(secondNum->getType() == POLYNOMIAL_TYPE)
+        {
+                Polynomial* p2 = (Polynomial*) secondNum;
+                return p2->push_back(firstNum,'*');
+        }
+
 	//For any other case create Polynomial
 	return new Polynomial(firstNum,'*', secondNum);
 }
@@ -427,10 +454,21 @@ Number* Operations::divide(Number* firstNum, Number* secondNum)
 		Polynomial* p2 = (Polynomial*) secondNum;
 		return p1->join(p2,'/');
 	}
+        else if(firstNum->getType() == POLYNOMIAL_TYPE)
+        {
+                Polynomial* p1 = (Polynomial*) firstNum;
+                return p1->push_back(secondNum,'/');
+        }
+        else if(secondNum->getType() == POLYNOMIAL_TYPE)
+        {
+                Polynomial* p2 = (Polynomial*) secondNum;
+                return p2->push_back(firstNum,'/');
+        }
+
 	//For any other case create Polynomial
 	else 
 	{
-		return new Polynomial(firstNum,'+', secondNum);
+		return new Polynomial(firstNum,'/', secondNum);
 	}
 	
 	//TODO For debugging
