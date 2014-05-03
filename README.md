@@ -11,7 +11,7 @@ This is a simple calculator that attempts to solve basic mathematic expressions 
 
 ##### Install using package manager
 
-    sudo apt-get install
+    sudo apt-get install libpcre3
 
 
 ##### Install from source
@@ -54,5 +54,4 @@ Example of valid input:
 
 ##Bugs/Errors
 
-* Some complex cases are currently not implemented and therefore will not solve.
- 
+* Fails to simplify some complex cases.
